@@ -20,7 +20,6 @@ public class Day05 {
         List<Deque<Character>> stacks = importStacks(input, breakLine);
 
         performAllMoves(input, breakLine, stacks, moveWithCrateMover9000);
-//        performAllMovesWithCrateMover9000(input, breakLine, stacks);
 
         return getTopCratesInAllStacks(stacks);
     }
