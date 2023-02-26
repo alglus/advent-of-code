@@ -51,7 +51,7 @@ public class Day01 {
 
 
     public static void main(String[] args) {
-        List<String> input = Util.getLinesFromPuzzleFile("aoc2022/input_day_01.txt");
+        List<String> input = Util.getLinesFromPuzzleFile("aoc2022/input/day_01.txt");
 
 
         System.out.println("Part 1: " + countCaloriesPart1(input));

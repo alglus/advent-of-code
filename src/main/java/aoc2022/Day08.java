@@ -231,7 +231,7 @@ public class Day08 {
 
 
     public static void main(String[] args) {
-        List<String> input = Util.getLinesFromPuzzleFile("aoc2022/input_day_08.txt");
+        List<String> input = Util.getLinesFromPuzzleFile("aoc2022/input/day_08.txt");
 
         System.out.println("Part 1: " + Day08.treetopTreeHousePart1(input));
         System.out.println("Part 2: " + Day08.treetopTreeHousePart2(input));

@@ -11,7 +11,7 @@ public class Day05Tests {
 
     @Test
     public void aoc_example_part1() {
-        List<String> input = Util.getLinesFromTestFile("aoc2022/input_day_05.txt");
+        List<String> input = Util.getLinesFromTestFile("aoc2022/input/day_05.txt");
         String topCrates = Day05.supplyStacksPart1(input);
 
         assertEquals("CMZ", topCrates);
@@ -19,7 +19,7 @@ public class Day05Tests {
 
     @Test
     public void aoc_example_part2() {
-        List<String> input = Util.getLinesFromTestFile("aoc2022/input_day_05.txt");
+        List<String> input = Util.getLinesFromTestFile("aoc2022/input/day_05.txt");
         String topCrates = Day05.supplyStacksPart2(input);
 
         assertEquals("MCD", topCrates);

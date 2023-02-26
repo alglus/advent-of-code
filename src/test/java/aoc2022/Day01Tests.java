@@ -57,7 +57,7 @@ public class Day01Tests {
 
     @Test
     public void aoc_example_part1() {
-        List<String> input = Util.getLinesFromTestFile("aoc2022/input_day_01.txt");
+        List<String> input = Util.getLinesFromTestFile("aoc2022/input/day_01.txt");
         long caloriesOfTopElf = Day01.countCaloriesPart1(input);
 
         assertEquals(24000, caloriesOfTopElf);
@@ -65,7 +65,7 @@ public class Day01Tests {
 
     @Test
     public void aoc_example_part2() {
-        List<String> input = Util.getLinesFromTestFile("aoc2022/input_day_01.txt");
+        List<String> input = Util.getLinesFromTestFile("aoc2022/input/day_01.txt");
         long caloriesOfTopThreeElves = Day01.countCaloriesPart2(input);
 
         assertEquals(45000, caloriesOfTopThreeElves);

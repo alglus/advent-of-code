@@ -117,7 +117,7 @@ public class Day07 {
 
 
     public static void main(String[] args) {
-        List<String> input = Util.getLinesFromPuzzleFile("aoc2022/input_day_07.txt");
+        List<String> input = Util.getLinesFromPuzzleFile("aoc2022/input/day_07.txt");
 
         System.out.println("Part 1: " + noSpaceLeftOnDevicePart1(input));
         System.out.println("Part 2: " + noSpaceLeftOnDevicePart2(input));

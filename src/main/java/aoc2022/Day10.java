@@ -129,7 +129,7 @@ public class Day10 {
 
 
     public static void main(String[] args) {
-        List<String> input = Util.getLinesFromPuzzleFile("aoc2022/input_day_10.txt");
+        List<String> input = Util.getLinesFromPuzzleFile("aoc2022/input/day_10.txt");
 
         System.out.println("Part 1: " + Day10.cathodeRayTubePart1(input));
 

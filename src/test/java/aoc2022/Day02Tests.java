@@ -96,7 +96,7 @@ public class Day02Tests {
 
     @Test
     public void aoc_example_part1() {
-        List<String> input = Util.getLinesFromTestFile("aoc2022/input_day_02.txt");
+        List<String> input = Util.getLinesFromTestFile("aoc2022/input/day_02.txt");
         long score = Day02.rockPaperScissorsPart1(input);
 
         assertEquals(15, score);
@@ -104,7 +104,7 @@ public class Day02Tests {
 
     @Test
     public void aoc_example_part2() {
-        List<String> input = Util.getLinesFromTestFile("aoc2022/input_day_02.txt");
+        List<String> input = Util.getLinesFromTestFile("aoc2022/input/day_02.txt");
         long score = Day02.rockPaperScissorsPart2(input);
 
         assertEquals(12, score);

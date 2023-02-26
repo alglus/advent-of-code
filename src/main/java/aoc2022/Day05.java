@@ -145,7 +145,7 @@ public class Day05 {
 
 
     public static void main(String[] args) {
-        List<String> input = Util.getLinesFromPuzzleFile("aoc2022/input_day_05.txt");
+        List<String> input = Util.getLinesFromPuzzleFile("aoc2022/input/day_05.txt");
 
         System.out.println("Part 1: " + supplyStacksPart1(input));
         System.out.println("Part 2: " + supplyStacksPart2(input));

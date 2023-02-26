@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class Day06Tests {
 
     private static Stream<Arguments> getTestDatastreamsPart1() {
-        List<String> input = Util.getLinesFromTestFile("aoc2022/input_day_06.txt");
+        List<String> input = Util.getLinesFromTestFile("aoc2022/input/day_06.txt");
 
         return Stream.of(
                 Arguments.of(input.get(0), 7),
@@ -25,7 +25,7 @@ public class Day06Tests {
     }
 
     private static Stream<Arguments> getTestDatastreamsPart2() {
-        List<String> input = Util.getLinesFromTestFile("aoc2022/input_day_06.txt");
+        List<String> input = Util.getLinesFromTestFile("aoc2022/input/day_06.txt");
 
         return Stream.of(
                 Arguments.of(input.get(0), 19),

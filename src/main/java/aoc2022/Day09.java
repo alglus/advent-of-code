@@ -125,7 +125,7 @@ public class Day09 {
 
 
     public static void main(String[] args) {
-        List<String> input = Util.getLinesFromPuzzleFile("aoc2022/input_day_09.txt");
+        List<String> input = Util.getLinesFromPuzzleFile("aoc2022/input/day_09.txt");
 
         System.out.println("Part 1: " + Day09.ropeBridgePart1(input));
         System.out.println("Part 2: " + Day09.ropeBridgePart2(input));

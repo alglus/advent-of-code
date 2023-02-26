@@ -157,7 +157,7 @@ public class Day02 {
 
 
     public static void main(String[] args) {
-        List<String> input = Util.getLinesFromPuzzleFile("aoc2022/input_day_02.txt");
+        List<String> input = Util.getLinesFromPuzzleFile("aoc2022/input/day_02.txt");
 
         System.out.println("Part 1: " + rockPaperScissorsPart1(input));
         System.out.println("Part 2: " + rockPaperScissorsPart2(input));

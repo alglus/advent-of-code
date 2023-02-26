@@ -78,7 +78,7 @@ public class Day04 {
 
 
     public static void main(String[] args) {
-        List<String> input = Util.getLinesFromPuzzleFile("aoc2022/input_day_04.txt");
+        List<String> input = Util.getLinesFromPuzzleFile("aoc2022/input/day_04.txt");
 
         System.out.println("Part 1: " + campCleanUpPart1(input));
         System.out.println("Part 2: " + campCleanUpPart2(input));

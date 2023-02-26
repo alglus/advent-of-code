@@ -11,7 +11,7 @@ public class Day03Tests {
 
     @Test
     public void aoc_example_part1() {
-        List<String> input = Util.getLinesFromTestFile("aoc2022/input_day_03.txt");
+        List<String> input = Util.getLinesFromTestFile("aoc2022/input/day_03.txt");
         long prioritiesSum = Day03.rucksackReorganizationPart1(input);
 
         assertEquals(157, prioritiesSum);
@@ -19,7 +19,7 @@ public class Day03Tests {
 
     @Test
     public void aoc_example_part2() {
-        List<String> input = Util.getLinesFromTestFile("aoc2022/input_day_03.txt");
+        List<String> input = Util.getLinesFromTestFile("aoc2022/input/day_03.txt");
         long prioritiesSum = Day03.rucksackReorganizationPart2(input);
 
         assertEquals(70, prioritiesSum);

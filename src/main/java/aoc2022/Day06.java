@@ -55,7 +55,7 @@ public class Day06 {
 
 
     public static void main(String[] args) {
-        List<String> input = Util.getLinesFromPuzzleFile("aoc2022/input_day_06.txt");
+        List<String> input = Util.getLinesFromPuzzleFile("aoc2022/input/day_06.txt");
         String dataStream = input.get(0);
 
         System.out.println("Part 1: " + tuningTroublePart1(dataStream));

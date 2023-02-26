@@ -102,7 +102,7 @@ public class Day03 {
 
 
     public static void main(String[] args) {
-        List<String> input = Util.getLinesFromPuzzleFile("aoc2022/input_day_03.txt");
+        List<String> input = Util.getLinesFromPuzzleFile("aoc2022/input/day_03.txt");
 
         System.out.println("Part 1: " + rucksackReorganizationPart1(input));
         System.out.println("Part 2: " + rucksackReorganizationPart2(input));
