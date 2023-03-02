@@ -58,4 +58,12 @@ public class Util {
     public static void print(List<String> list) {
         list.forEach(System.out::println);
     }
+
+    public static boolean divisible(long numerator, long denominator) {
+        return numerator % denominator == 0;
+    }
+
+    public static String getLastCharacter(String string) {
+        return string.substring(string.length() - 1);
+    }
 }
