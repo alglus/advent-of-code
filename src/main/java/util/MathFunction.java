@@ -1,5 +1,7 @@
 package util;
 
+import java.util.Arrays;
+
 public enum MathFunction {
     ADD('+'), SUB('-'), MUL('*'), DIV('/');
 
@@ -10,11 +12,9 @@ public enum MathFunction {
     }
 
     public static MathFunction fromOperator(char operator) {
-        for (MathFunction function : values()) {
-            if (function.operator == operator)
-                return function;
-        }
-
-        throw new IllegalArgumentException("Unkown operator found!");
+        return Arrays.stream(values())
+                .filter(function -> function.operator == operator)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Unkown operator found!"));
     }
 }
