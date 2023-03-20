@@ -5,7 +5,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Util {
 
@@ -33,7 +35,7 @@ public class Util {
         return lines;
     }
 
-    public static int[][] convertNumbersListIntoMatrix(List<String> input) {
+    public static int[][] convertNumbersInputIntoMatrix(List<String> input) {
 
         if (input == null || input.isEmpty() || input.get(0) == null)
             throw new IllegalArgumentException("The input is empty");
@@ -55,6 +57,18 @@ public class Util {
         return matrix;
     }
 
+    public static char[][] convertCharInputIntoMatrix(List<String> input) {
+        if (input == null || input.isEmpty() || input.get(0) == null)
+            throw new IllegalArgumentException("The input is empty");
+
+        char[][] matrix = new char[input.size()][input.get(0).length()];
+
+        for (int i = 0; i < input.size(); i++)
+            matrix[i] = input.get(i).toCharArray();
+
+        return matrix;
+    }
+
     public static void print(List<String> list) {
         list.forEach(System.out::println);
     }
@@ -66,4 +80,11 @@ public class Util {
     public static String getLastCharacter(String string) {
         return string.substring(string.length() - 1);
     }
+
+    public static String concatenate(String delimiter, int... numbers) {
+        return Arrays.stream(numbers)
+                .mapToObj(Integer::toString)
+                .collect(Collectors.joining(delimiter));
+    }
+
 }
