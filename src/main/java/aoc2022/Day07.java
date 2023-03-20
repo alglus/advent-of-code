@@ -1,6 +1,6 @@
 package aoc2022;
 
-import util.Node;
+import util.File;
 import util.Tree;
 import util.Util;
 
@@ -33,70 +33,70 @@ public class Day07 {
     private static Tree createTree(List<String> input) {
 
         Tree tree = new Tree();
-        Node currentNode = null;
+        File currentFile = null;
 
         for (String line : input) {
 
             if (line.equals("$ cd /")) {
 
-                Node root = new Node("/", -1, Node.Types.DIR, null);
+                File root = new File("/", -1, File.Types.DIR, null);
                 tree.setRoot(root);
-                currentNode = root;
+                currentFile = root;
 
             } else if (line.startsWith("$")) {
 
-                currentNode = executeCommand(line, currentNode);
+                currentFile = executeCommand(line, currentFile);
 
             } else {
 
-                addNodeToTree(line, currentNode);
+                addNodeToTree(line, currentFile);
             }
         }
 
         return tree;
     }
 
-    private static Node executeCommand(String line, Node currentNode) {
+    private static File executeCommand(String line, File currentFile) {
 
         if (line.equals("$ ls"))
-            return currentNode;
+            return currentFile;
 
         if (line.equals("$ cd ..")) {
-            return currentNode.getParent();
+            return currentFile.getParent();
         }
 
         if (line.startsWith("$ cd ")) {
             String dirName = line.substring(5);
-            return currentNode.getChildByName(dirName);
+            return currentFile.getChildByName(dirName);
         }
 
         return null;
     }
 
-    private static void addNodeToTree(String nodeInput, Node parent) {
+    private static void addNodeToTree(String nodeInput, File parent) {
 
-        Node newNode = parseNodeInput(nodeInput, parent);
+        File newFile = parseNodeInput(nodeInput, parent);
 
-        parent.addChild(newNode);
+        parent.addChild(newFile);
     }
 
-    private static Node parseNodeInput(String line, Node parent) {
+    private static File parseNodeInput(String line, File parent) {
 
         String[] nodeData = line.split(" ");
 
         if (nodeData[0].equals("dir")) {
-            return new Node(nodeData[1], -1, Node.Types.DIR, parent);
+            return new File(nodeData[1], -1, File.Types.DIR, parent);
 
         } else {
-            return new Node(nodeData[1], Integer.parseInt(nodeData[0]), Node.Types.FILE, parent);
+            return new File(nodeData[1], Integer.parseInt(nodeData[0]), File.Types.FILE, parent);
         }
     }
 
     private static int getTotalSizeOfDirsSmallerOrEqualThanMax(Tree tree, int maxSize) {
         return tree.getPostOrderDfs().stream()
-                .filter(Node::isDir)
-                .filter(node -> node.getSize() <= maxSize)
-                .mapToInt(Node::getSize)
+                .filter(File::isDir)
+                .filter(file -> file.getSize() <= maxSize)
+                .mapToInt(File::getSize)
                 .sum();
     }
 
@@ -107,8 +107,8 @@ public class Day07 {
         assert (requiredDeletionSpace > 0);
 
         return tree.getPostOrderDfs().stream()
-                .filter(Node::isDir)
-                .mapToInt(Node::getSize)
+                .filter(File::isDir)
+                .mapToInt(File::getSize)
                 .filter(size -> size >= requiredDeletionSpace)
                 .sorted()
                 .findFirst()

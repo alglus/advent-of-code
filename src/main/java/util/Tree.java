@@ -4,21 +4,21 @@ import java.util.*;
 
 public class Tree {
 
-    private Node root;
-    private final List<Node> postOrderDfs = new ArrayList<>();
+    private File root;
+    private final List<File> postOrderDfs = new ArrayList<>();
 
     public Tree() {
     }
 
-    public Node getRoot() {
+    public File getRoot() {
         return root;
     }
 
-    public List<Node> getPostOrderDfs() {
+    public List<File> getPostOrderDfs() {
         return postOrderDfs;
     }
 
-    public void setRoot(Node root) {
+    public void setRoot(File root) {
         this.root = root;
     }
 
@@ -26,7 +26,7 @@ public class Tree {
         setNodeSizesAndInitializePostOrderDfsList(root);
     }
 
-    private void setNodeSizesAndInitializePostOrderDfsList(Node node) {
+    private void setNodeSizesAndInitializePostOrderDfsList(File node) {
         if (node == null)
             return;
 
@@ -34,7 +34,7 @@ public class Tree {
 
         if (node.isDir()) {
             node.setSize(node.getChildren().stream()
-                    .mapToInt(Node::getSize)
+                    .mapToInt(File::getSize)
                     .sum());
         }
         postOrderDfs.add(node);

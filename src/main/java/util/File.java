@@ -3,17 +3,17 @@ package util;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Node {
+public class File {
 
     private final String name;
     private int size;
     private final Types type;
-    private final Node parent;
+    private final File parent;
 
     private int ownIndexAmongSiblings;
-    private final List<Node> children = new ArrayList<>();
+    private final List<File> children = new ArrayList<>();
 
-    public Node(String name, int size, Types type, Node parent) {
+    public File(String name, int size, Types type, File parent) {
         this.name = name;
         this.size = size;
         this.type = type;
@@ -28,11 +28,11 @@ public class Node {
         return size;
     }
 
-    public Node getParent() {
+    public File getParent() {
         return parent;
     }
 
-    public List<Node> getChildren() {
+    public List<File> getChildren() {
         return children;
     }
 
@@ -52,26 +52,26 @@ public class Node {
         return type == Types.DIR;
     }
 
-    public void addChild(Node child) {
+    public void addChild(File child) {
         child.setOwnIndexAmongSiblings(this.children.size());
         children.add(child);
     }
 
-    public Node getChildByName(String searchedName) {
+    public File getChildByName(String searchedName) {
         return children.stream()
-                .filter(node -> node.getName().equals(searchedName))
+                .filter(file -> file.getName().equals(searchedName))
                 .findFirst()
                 .orElse(null);
     }
 
-    public Node leftmostChild() {
+    public File leftmostChild() {
         if (isFile())
             return null;
 
         return children.get(0);
     }
 
-    public Node rightSibling() {
+    public File rightSibling() {
         int rightSiblingIndex = ownIndexAmongSiblings + 1;
 
         if (parent == null || parent.getChildren().size() == rightSiblingIndex) {
