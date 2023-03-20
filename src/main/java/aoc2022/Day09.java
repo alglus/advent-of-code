@@ -1,10 +1,14 @@
 package aoc2022;
 
+import util.Directions;
 import util.Position;
 import util.Step;
 import util.Util;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import static java.lang.Math.abs;
 
@@ -23,7 +27,7 @@ public class Day09 {
 
             for (int s = 0; s < instruction.steps; s++) {
 
-                head.move(instruction.direction().step);
+                head.move(instruction.direction().step());
                 adjustTail(tail, head);
 
                 visitedPositions.add(tail.toString());
@@ -47,7 +51,7 @@ public class Day09 {
             Instruction instruction = getInstruction(inputLine);
 
             for (int s = 0; s < instruction.steps; s++) {
-                head.move(instruction.direction().step);
+                head.move(instruction.direction().step());
                 Position newHead = head;
 
                 for (Position knot : rope) {
@@ -101,16 +105,6 @@ public class Day09 {
     private static void moveDiagonallyX(Position tail, int xDistance) {
         if (xDistance >= 1) tail.move(new Step(1, 0));
         if (xDistance <= -1) tail.move(new Step(-1, 0));
-    }
-
-    private enum Directions {
-        R(1, 0), L(-1, 0), U(0, -1), D(0, 1);
-
-        private final Step step;
-
-        Directions(int stepX, int stepY) {
-            this.step = new Step(stepX, stepY);
-        }
     }
 
     private static List<Position> newRope(int length) {
