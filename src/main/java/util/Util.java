@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Util {
@@ -33,6 +34,12 @@ public class Util {
         }
 
         return lines;
+    }
+
+    public static List<String> removeEmptyLines(List<String> input) {
+        return input.stream()
+                .filter(Predicate.not(String::isBlank))
+                .collect(Collectors.toCollection(ArrayList::new)); // return mutable list
     }
 
     public static int[][] convertNumbersInputIntoMatrix(List<String> input) {
@@ -85,6 +92,32 @@ public class Util {
         return Arrays.stream(numbers)
                 .mapToObj(Integer::toString)
                 .collect(Collectors.joining(delimiter));
+    }
+
+    public static List<String> splitByCommaIgnoringSquareBrackets(String string) {
+        StringBuilder substring = new StringBuilder();
+        List<String> list = new ArrayList<>();
+        int level = 0;
+
+        for (char c : string.toCharArray()) {
+            if (c == ',') {
+                if (level == 0) {
+                    list.add(substring.toString());
+                    substring = new StringBuilder();
+                } else {
+                    substring.append(c);
+                }
+            } else {
+                substring.append(c);
+                if (c == '[') level++;
+                if (c == ']') level--;
+            }
+        }
+        list.add(substring.toString());
+
+        if (level != 0) throw new IllegalArgumentException("The passed list is unbalanced!");
+
+        return list;
     }
 
 }
