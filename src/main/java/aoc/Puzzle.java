@@ -1,11 +1,14 @@
 package aoc;
 
+import lombok.Getter;
 import util.Input;
 
 import java.util.List;
 
 public abstract class Puzzle {
+    @Getter
     private final int year;
+    @Getter
     private final int day;
     private boolean isTest = false;
     private String inputFileSuffix = "";
@@ -39,8 +42,16 @@ public abstract class Puzzle {
     }
 
     protected void printSolutions() {
-        System.out.println("Part 1: " + solvePart1());
-        System.out.println("Part 2: " + solvePart2());
+        printPart1();
+        printPart2();
+    }
+
+    protected void printPart1() {
+        System.out.printf("aoc%d.day%02d.part1: %s\n", year, day, solvePart1());
+    }
+
+    protected void printPart2() {
+        System.out.printf("aoc%d.day%02d.part2: %s\n", year, day, solvePart2());
     }
 
     private String getInputPath() {

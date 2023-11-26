@@ -17,9 +17,7 @@ public class Day10 extends Puzzle2022 {
     }
 
     public static void main(String[] args) {
-        var day10 = new Day10();
-        System.out.println("Part 1: " + day10.solvePart1());
-        System.out.println("Part 2:\n" + day10.solvePart2());
+        new Day10().printSolutions();
     }
 
     private Instruction convertToInstruction(String input) {
@@ -114,6 +112,11 @@ public class Day10 extends Puzzle2022 {
         }
 
         return String.join("\n", image.stream().map(StringBuilder::toString).toList());
+    }
+
+    @Override
+    protected void printPart2() {
+        System.out.printf("aoc%d.day%02d.part2:\n%s\n", getYear(), getDay(), solvePart2());
     }
 
     @Getter
