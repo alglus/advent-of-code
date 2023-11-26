@@ -45,7 +45,7 @@ public class Position {
     }
 
     public boolean isInRange() {
-        return rangeX.spans(x) && rangeY.spans(y);
+        return rangeX.contains(x) && rangeY.contains(y);
     }
 
     @Override

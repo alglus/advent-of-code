@@ -100,7 +100,7 @@ public class Day10 extends Puzzle2022 {
                 int imageRow = cycle / crtWidth;
                 int currentPixel = cycle % crtWidth;
 
-                if (sprite.spans(currentPixel)) {
+                if (sprite.contains(currentPixel)) {
                     image.get(imageRow).append("#");
                 } else {
                     image.get(imageRow).append(".");

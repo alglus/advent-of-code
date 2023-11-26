@@ -1,5 +1,7 @@
 package aoc2022;
 
+import util.Range;
+
 public class Day04 extends Puzzle2022 {
 
     public Day04() {
@@ -63,18 +65,4 @@ public class Day04 extends Puzzle2022 {
         return String.valueOf(overlappingPairs);
     }
 
-    private record Range(int startIncl, int endIncl) {
-
-        public boolean inside(Range other) {
-            return this.startIncl >= other.startIncl && this.endIncl <= other.endIncl;
-        }
-
-        public boolean overlaps(Range other) {
-            return this.contains(other.startIncl) || this.contains(other.endIncl);
-        }
-
-        private boolean contains(int point) {
-            return point >= startIncl && point <= endIncl;
-        }
-    }
 }
