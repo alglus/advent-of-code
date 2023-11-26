@@ -1,7 +1,7 @@
 package aoc2022;
 
+import lombok.Getter;
 import util.Range;
-import util.Util;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -10,11 +10,50 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Day10 {
+public class Day10 extends Puzzle2022 {
 
-    /* --- Part One --- */
-    public static int cathodeRayTubePart1(List<String> input) {
+    public Day10() {
+        super(10);
+    }
 
+    public static void main(String[] args) {
+        var day10 = new Day10();
+        System.out.println("Part 1: " + day10.solvePart1());
+        System.out.println("Part 2:\n" + day10.solvePart2());
+    }
+
+    private Instruction convertToInstruction(String input) {
+        if (input.equals("noop")) {
+            return new Instruction(Type.NOOP, null, 0);
+
+        } else {
+            Matcher regex = Pattern.compile("add(\\w) (-?\\d+)").matcher(input);
+
+            if (!regex.matches()) {
+                throw new IllegalArgumentException("There seems to be an error in the input.");
+            }
+
+            String registerName = regex.group(1);
+            int value = Integer.parseInt(regex.group(2));
+
+            return new Instruction(Type.ADD, registerName, value);
+        }
+    }
+
+    private Range getSpritePixelsRange(int spritePosition) {
+        return new Range(spritePosition - 1, spritePosition + 1);
+    }
+
+    private List<StringBuilder> initializeImage(int imageHeight) {
+        List<StringBuilder> image = new ArrayList<>(imageHeight);
+        for (int i = 0; i < imageHeight; i++) {
+            image.add(new StringBuilder());
+        }
+        return image;
+    }
+
+    @Override
+    public String solvePart1() {
         Deque<Integer> importantCycles = new ArrayDeque<>(List.of(20, 60, 100, 140, 180, 220));
         int nextImportantCycle = importantCycles.removeFirst();
 
@@ -22,16 +61,17 @@ public class Day10 {
         int signalStrengthSum = 0;
         int registerValue = 1;
 
-        for (String inputLine : input) {
-            Instruction instruction = convertToInstruction(inputLine);
+        for (String inputLine : getInputLines()) {
+            var instruction = convertToInstruction(inputLine);
 
             cycle += instruction.type().getCycles();
 
             if (cycle >= nextImportantCycle) {
                 signalStrengthSum += nextImportantCycle * registerValue;
 
-                if (importantCycles.isEmpty())
+                if (importantCycles.isEmpty()) {
                     break;
+                }
 
                 nextImportantCycle = importantCycles.removeFirst();
             }
@@ -39,24 +79,22 @@ public class Day10 {
             registerValue += instruction.value();
         }
 
-        return signalStrengthSum;
+        return String.valueOf(signalStrengthSum);
     }
 
-
-    /* --- Part Two --- */
-    public static List<String> cathodeRayTubePart2(List<String> input) {
-
+    @Override
+    public String solvePart2() {
         int crtWidth = 40;
         int crtHeight = 6;
 
         int cycle = 0;
         int spritePosition = 1;
 
-        Range sprite = getSpritePixelsRange(spritePosition);
-        List<StringBuilder> image = initializeImage(crtHeight);
+        var sprite = getSpritePixelsRange(spritePosition);
+        var image = initializeImage(crtHeight);
 
-        for (String inputLine : input) {
-            Instruction instruction = convertToInstruction(inputLine);
+        for (String inputLine : getInputLines()) {
+            var instruction = convertToInstruction(inputLine);
 
             for (int i = 0; i < instruction.type().getCycles(); i++) {
                 int imageRow = cycle / crtWidth;
@@ -75,44 +113,10 @@ public class Day10 {
             sprite = getSpritePixelsRange(spritePosition);
         }
 
-        return image.stream().map(StringBuilder::toString).toList();
+        return String.join("\n", image.stream().map(StringBuilder::toString).toList());
     }
 
-
-    private record Instruction(Type type, String register, int value) {
-    }
-
-    private static Instruction convertToInstruction(String input) {
-        if (input.equals("noop")) {
-
-            return new Instruction(Type.NOOP, null, 0);
-
-        } else {
-
-            Matcher regex = Pattern.compile("add(\\w) (-?\\d+)").matcher(input);
-
-            if (!regex.matches())
-                throw new IllegalArgumentException("There seems to be an error in the input.");
-
-            String registerName = regex.group(1);
-            int value = Integer.parseInt(regex.group(2));
-
-            return new Instruction(Type.ADD, registerName, value);
-        }
-    }
-
-    private static Range getSpritePixelsRange(int spritePosition) {
-        return new Range(spritePosition - 1, spritePosition + 1);
-    }
-
-    private static List<StringBuilder> initializeImage(int imageHeight) {
-        List<StringBuilder> image = new ArrayList<>(imageHeight);
-        for (int i = 0; i < imageHeight; i++) {
-            image.add(new StringBuilder());
-        }
-        return image;
-    }
-
+    @Getter
     private enum Type {
         ADD(2), NOOP(1);
 
@@ -121,19 +125,8 @@ public class Day10 {
         Type(int cycles) {
             this.cycles = cycles;
         }
-
-        public int getCycles() {
-            return cycles;
-        }
     }
 
-
-    public static void main(String[] args) {
-        List<String> input = Util.getLinesFromPuzzleFile("aoc2022/input/day_10.txt");
-
-        System.out.println("Part 1: " + Day10.cathodeRayTubePart1(input));
-
-        System.out.println("Part 2:");
-        Util.print(Day10.cathodeRayTubePart2(input));
+    private record Instruction(Type type, String register, int value) {
     }
 }

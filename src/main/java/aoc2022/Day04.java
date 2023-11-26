@@ -1,16 +1,37 @@
 package aoc2022;
 
-import util.Util;
+public class Day04 extends Puzzle2022 {
 
-import java.util.List;
+    public Day04() {
+        super(4);
+    }
 
-public class Day04 {
+    public static void main(String[] args) {
+        new Day04().printSolutions();
+    }
 
-    /* --- Part One --- */
-    public static int campCleanUpPart1(List<String> input) {
+    private Range extractRangeFrom(String section) {
+        var rangeLimits = section.split("-");
+
+        return new Range(
+                Integer.parseInt(rangeLimits[0]),
+                Integer.parseInt(rangeLimits[1])
+        );
+    }
+
+    private boolean sectionsFullyOverlap(Range range1, Range range2) {
+        return range1.inside(range2) || range2.inside(range1);
+    }
+
+    private boolean sectionsOverlap(Range range1, Range range2) {
+        return range1.overlaps(range2) || range2.overlaps(range1);
+    }
+
+    @Override
+    public String solvePart1() {
         int fullyOverlappingPairs = 0;
 
-        for (String pair : input) {
+        for (String pair : getInputLines()) {
             String[] sections = pair.split(",");
 
             Range range1 = extractRangeFrom(sections[0]);
@@ -21,15 +42,14 @@ public class Day04 {
             }
         }
 
-        return fullyOverlappingPairs;
+        return String.valueOf(fullyOverlappingPairs);
     }
 
-
-    /* --- Part Two --- */
-    public static int campCleanUpPart2(List<String> input) {
+    @Override
+    public String solvePart2() {
         int overlappingPairs = 0;
 
-        for (String pair : input) {
+        for (String pair : getInputLines()) {
             String[] sections = pair.split(",");
 
             Range range1 = extractRangeFrom(sections[0]);
@@ -40,25 +60,7 @@ public class Day04 {
             }
         }
 
-        return overlappingPairs;
-    }
-
-
-    private static Range extractRangeFrom(String section) {
-        String[] rangeLimits = section.split("-");
-
-        return new Range(
-                Integer.parseInt(rangeLimits[0]),
-                Integer.parseInt(rangeLimits[1])
-        );
-    }
-
-    private static boolean sectionsFullyOverlap(Range range1, Range range2) {
-        return range1.inside(range2) || range2.inside(range1);
-    }
-
-    private static boolean sectionsOverlap(Range range1, Range range2) {
-        return range1.overlaps(range2) || range2.overlaps(range1);
+        return String.valueOf(overlappingPairs);
     }
 
     private record Range(int startIncl, int endIncl) {
@@ -74,13 +76,5 @@ public class Day04 {
         private boolean contains(int point) {
             return point >= startIncl && point <= endIncl;
         }
-    }
-
-
-    public static void main(String[] args) {
-        List<String> input = Util.getLinesFromPuzzleFile("aoc2022/input/day_04.txt");
-
-        System.out.println("Part 1: " + campCleanUpPart1(input));
-        System.out.println("Part 2: " + campCleanUpPart2(input));
     }
 }

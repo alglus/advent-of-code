@@ -1,50 +1,19 @@
 package aoc2022;
 
-import util.Util;
-
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class Day03 {
+public class Day03 extends Puzzle2022 {
 
-    /* --- Part One --- */
-    public static long rucksackReorganizationPart1(List<String> input) {
-
-        long prioritiesSum = 0;
-
-        for (String itemsList : input) {
-
-            char commonItem = findCommonItemInBothCompartments(itemsList);
-            int priority = convertItemToPriority(commonItem);
-            prioritiesSum += priority;
-        }
-
-        return prioritiesSum;
+    public Day03() {
+        super(3);
     }
 
-
-    /* --- Part Two --- */
-    public static long rucksackReorganizationPart2(List<String> input) {
-
-        long prioritiesSum = 0;
-
-        for (int groupStart = 0; groupStart < input.size(); groupStart += 3) {
-            String itemsElf1 = input.get(groupStart);
-            String itemsElf2 = input.get(groupStart + 1);
-            String itemsElf3 = input.get(groupStart + 2);
-
-            char commonItem = findCommonItemInAllThreeRucksacks(itemsElf1, itemsElf2, itemsElf3);
-            int priority = convertItemToPriority(commonItem);
-
-            prioritiesSum += priority;
-        }
-
-        return prioritiesSum;
+    public static void main(String[] args) {
+        new Day03().printSolutions();
     }
 
-
-    private static char findCommonItemInBothCompartments(String itemsList) {
+    private char findCommonItemInBothCompartments(String itemsList) {
         int halfLength = itemsList.length() / 2;
         Map<Character, Integer> foundChars = new HashMap<>();
 
@@ -63,8 +32,7 @@ public class Day03 {
         return 0;
     }
 
-
-    private static char findCommonItemInAllThreeRucksacks(String itemsElf1, String itemsElf2, String itemsElf3) {
+    private char findCommonItemInAllThreeRucksacks(String itemsElf1, String itemsElf2, String itemsElf3) {
         Map<Character, Integer> foundChars = new HashMap<>();
 
         for (int i1 = 0; i1 < itemsElf1.length(); i1++) {
@@ -90,7 +58,7 @@ public class Day03 {
         return 0;
     }
 
-    private static int convertItemToPriority(char commonItem) {
+    private int convertItemToPriority(char commonItem) {
         if (commonItem == 0) return 0;
 
         if (Character.isLowerCase(commonItem)) {
@@ -100,11 +68,36 @@ public class Day03 {
         }
     }
 
+    @Override
+    public String solvePart1() {
+        long prioritiesSum = 0;
 
-    public static void main(String[] args) {
-        List<String> input = Util.getLinesFromPuzzleFile("aoc2022/input/day_03.txt");
+        for (String itemsList : getInputLines()) {
+            var commonItem = findCommonItemInBothCompartments(itemsList);
+            var priority = convertItemToPriority(commonItem);
 
-        System.out.println("Part 1: " + rucksackReorganizationPart1(input));
-        System.out.println("Part 2: " + rucksackReorganizationPart2(input));
+            prioritiesSum += priority;
+        }
+
+        return String.valueOf(prioritiesSum);
+    }
+
+    @Override
+    public String solvePart2() {
+        long prioritiesSum = 0;
+        var input = getInputLines();
+
+        for (int groupStart = 0; groupStart < input.size(); groupStart += 3) {
+            var itemsElf1 = input.get(groupStart);
+            var itemsElf2 = input.get(groupStart + 1);
+            var itemsElf3 = input.get(groupStart + 2);
+
+            var commonItem = findCommonItemInAllThreeRucksacks(itemsElf1, itemsElf2, itemsElf3);
+            var priority = convertItemToPriority(commonItem);
+
+            prioritiesSum += priority;
+        }
+
+        return String.valueOf(prioritiesSum);
     }
 }

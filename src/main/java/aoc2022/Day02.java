@@ -1,83 +1,43 @@
 package aoc2022;
 
-import util.Util;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class Day02 {
+public class Day02 extends Puzzle2022 {
 
-    /* --- Part One --- */
-    public static long rockPaperScissorsPart1(List<String> input) {
-
-        long myScore = 0;
-
-        for (String roundInput : input) {
-            RoundPlays plays = convertRoundInputIntoPlays(roundInput);
-
-            RockPaperScissorsRound round = new RockPaperScissorsRound(
-                    OPPONENT_STRATEGY.get(plays.opponentPlay),
-                    MY_STRATEGY_PART_1.get(plays.myPlay)
-            );
-
-            myScore += round.getMyScore();
-        }
-
-        return myScore;
-    }
-
-
-    /* --- Part Two --- */
-    public static long rockPaperScissorsPart2(List<String> input) {
-
-        long myScore = 0;
-
-        for (String roundInput : input) {
-            RoundPlays plays = convertRoundInputIntoPlays(roundInput);
-
-            Shapes opponentShape = OPPONENT_STRATEGY.get(plays.opponentPlay);
-
-            RoundResults myRequiredResult = MY_STRATEGY_PART_2.get(plays.myPlay);
-            Shapes myShape = getMyRequiredShape(opponentShape, myRequiredResult);
-
-            RockPaperScissorsRound round = new RockPaperScissorsRound(opponentShape, myShape);
-
-            myScore += round.getMyScore();
-        }
-
-        return myScore;
-    }
-
-
-    private static final Map<String, Shapes> OPPONENT_STRATEGY = new HashMap<>(Map.of(
+    private final Map<String, Shapes> OPPONENT_STRATEGY = new HashMap<>(Map.of(
             "A", Shapes.ROCK,
             "B", Shapes.PAPER,
             "C", Shapes.SCISSORS
     ));
-
-    private static final Map<String, Shapes> MY_STRATEGY_PART_1 = new HashMap<>(Map.of(
+    private final Map<String, Shapes> MY_STRATEGY_PART_1 = new HashMap<>(Map.of(
             "X", Shapes.ROCK,
             "Y", Shapes.PAPER,
             "Z", Shapes.SCISSORS
     ));
-
-    private static final Map<String, RoundResults> MY_STRATEGY_PART_2 = new HashMap<>(Map.of(
+    private final Map<String, RoundResults> MY_STRATEGY_PART_2 = new HashMap<>(Map.of(
             "X", RoundResults.LOSS,
             "Y", RoundResults.DRAW,
             "Z", RoundResults.WIN
     ));
 
-
-    private record RoundPlays(String opponentPlay, String myPlay) {
+    public Day02() {
+        super(2);
     }
 
-    private static RoundPlays convertRoundInputIntoPlays(String roundInput) {
-        String[] plays = roundInput.split(" ");
+    public static void main(String[] args) {
+        new Day02().printSolutions();
+    }
+
+    private RoundPlays convertRoundInputIntoPlays(String roundInput) {
+        var plays = roundInput.split(" ");
         return new RoundPlays(plays[0], plays[1]);
     }
 
-    private static Shapes getMyRequiredShape(Shapes opponentShape, RoundResults myRequiredResult) {
+    private Shapes getMyRequiredShape(Shapes opponentShape, RoundResults myRequiredResult) {
         return switch (myRequiredResult) {
             case LOSS -> switch (opponentShape) {
                 case ROCK -> Shapes.SCISSORS;
@@ -93,6 +53,62 @@ public class Day02 {
         };
     }
 
+    @Override
+    public String solvePart1() {
+        long myScore = 0;
+
+        for (String roundInput : getInputLines()) {
+            var plays = convertRoundInputIntoPlays(roundInput);
+
+            var round = new RockPaperScissorsRound(
+                    OPPONENT_STRATEGY.get(plays.opponentPlay),
+                    MY_STRATEGY_PART_1.get(plays.myPlay)
+            );
+
+            myScore += round.getMyScore();
+        }
+
+        return String.valueOf(myScore);
+    }
+
+    @Override
+    public String solvePart2() {
+        long myScore = 0;
+
+        for (String roundInput : getInputLines()) {
+            var plays = convertRoundInputIntoPlays(roundInput);
+
+            var opponentShape = OPPONENT_STRATEGY.get(plays.opponentPlay);
+
+            var myRequiredResult = MY_STRATEGY_PART_2.get(plays.myPlay);
+            var myShape = getMyRequiredShape(opponentShape, myRequiredResult);
+
+            var round = new RockPaperScissorsRound(opponentShape, myShape);
+
+            myScore += round.getMyScore();
+        }
+
+        return String.valueOf(myScore);
+    }
+
+    @Getter
+    @AllArgsConstructor
+    private enum Shapes {
+        ROCK(1), PAPER(2), SCISSORS(3);
+
+        private final int score;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    private enum RoundResults {
+        LOSS(0), DRAW(3), WIN(6);
+
+        private final int score;
+    }
+
+    private record RoundPlays(String opponentPlay, String myPlay) {
+    }
 
     private record RockPaperScissorsRound(Shapes opponentShape, Shapes myShape) {
 
@@ -125,41 +141,5 @@ public class Day02 {
         private int getMyShapeScore() {
             return myShape.getScore();
         }
-    }
-
-    private enum Shapes {
-        ROCK(1), PAPER(2), SCISSORS(3);
-
-        private final int score;
-
-        Shapes(int score) {
-            this.score = score;
-        }
-
-        public int getScore() {
-            return score;
-        }
-    }
-
-    private enum RoundResults {
-        LOSS(0), DRAW(3), WIN(6);
-
-        private final int score;
-
-        RoundResults(int score) {
-            this.score = score;
-        }
-
-        public int getScore() {
-            return score;
-        }
-    }
-
-
-    public static void main(String[] args) {
-        List<String> input = Util.getLinesFromPuzzleFile("aoc2022/input/day_02.txt");
-
-        System.out.println("Part 1: " + rockPaperScissorsPart1(input));
-        System.out.println("Part 2: " + rockPaperScissorsPart2(input));
     }
 }

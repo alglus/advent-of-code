@@ -1,44 +1,49 @@
 package aoc2022;
 
-import util.Util;
+import java.util.ArrayList;
+import java.util.Set;
 
-import java.util.*;
+public class Day06 extends Puzzle2022 {
 
-public class Day06 {
+    public Day06() {
+        super(6);
+    }
 
-    /* --- Part One --- */
-    public static int tuningTroublePart1(String input) {
+    public static void main(String[] args) {
+        new Day06().printSolutions();
+    }
+
+    @Override
+    public String solvePart1() {
         StartOfPacketDetectingList<Character> datastream = new StartOfPacketDetectingList<>();
 
-        for (Character c : input.toCharArray()) {
+        for (Character c : getInputLine().toCharArray()) {
             datastream.add(c);
 
             if (datastream.lastElementsAllDifferent(4)) {
-                return datastream.size();
+                return String.valueOf(datastream.size());
             }
         }
 
-        return -1;
+        return null;
     }
 
-
-    /* --- Part Two --- */
-    public static int tuningTroublePart2(String input) {
+    @Override
+    public String solvePart2() {
         StartOfPacketDetectingList<Character> datastream = new StartOfPacketDetectingList<>();
 
-        for (Character c : input.toCharArray()) {
+        for (Character c : getInputLine().toCharArray()) {
             datastream.add(c);
 
             if (datastream.lastElementsAllDifferent(14)) {
-                return datastream.size();
+                return String.valueOf(datastream.size());
             }
         }
 
-        return -1;
+        return null;
     }
 
-
-    static class StartOfPacketDetectingList<E> extends ArrayList<E> {
+    private static class StartOfPacketDetectingList<E> extends ArrayList<E> {
 
         boolean lastElementsAllDifferent(int numberOfLastElements) {
 
@@ -51,14 +56,5 @@ public class Day06 {
 
             return setOfLastElements.size() == numberOfLastElements;
         }
-    }
-
-
-    public static void main(String[] args) {
-        List<String> input = Util.getLinesFromPuzzleFile("aoc2022/input/day_06.txt");
-        String dataStream = input.get(0);
-
-        System.out.println("Part 1: " + tuningTroublePart1(dataStream));
-        System.out.println("Part 2: " + tuningTroublePart2(dataStream));
     }
 }

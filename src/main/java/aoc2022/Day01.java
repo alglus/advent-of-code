@@ -1,37 +1,20 @@
 package aoc2022;
 
-import util.Util;
+import java.util.Comparator;
+import java.util.List;
+import java.util.TreeSet;
 
-import java.util.*;
+public class Day01 extends Puzzle2022 {
 
-public class Day01 {
-
-    /* --- Part One --- */
-    public static long countCaloriesPart1(List<String> input) {
-
-        if (input.isEmpty()) return 0;
-
-        TreeSet<Long> caloriesOfElves = sumCaloriesOfEachElfAndPutInSetInReverseOrder(input);
-
-        return caloriesOfElves.first();
+    public Day01() {
+        super(1);
     }
 
-
-    /* --- Part Two --- */
-    public static long countCaloriesPart2(List<String> input) {
-
-        if (input.isEmpty()) return 0;
-
-        TreeSet<Long> caloriesOfElves = sumCaloriesOfEachElfAndPutInSetInReverseOrder(input);
-
-        return caloriesOfElves.stream()
-                .limit(3)
-                .mapToLong(Long::longValue)
-                .sum();
+    public static void main(String[] args) {
+        new Day01().printSolutions();
     }
 
-
-    private static TreeSet<Long> sumCaloriesOfEachElfAndPutInSetInReverseOrder(List<String> input) {
+    private TreeSet<Long> sumCaloriesOfEachElfAndPutInSetInReverseOrder(List<String> input) {
         TreeSet<Long> caloriesSums = new TreeSet<>(Comparator.reverseOrder());
         long caloriesSum = 0;
 
@@ -49,12 +32,20 @@ public class Day01 {
         return caloriesSums;
     }
 
+    @Override
+    public String solvePart1() {
+        return sumCaloriesOfEachElfAndPutInSetInReverseOrder(getInputLines())
+                .first()
+                .toString();
+    }
 
-    public static void main(String[] args) {
-        List<String> input = Util.getLinesFromPuzzleFile("aoc2022/input/day_01.txt");
-
-
-        System.out.println("Part 1: " + countCaloriesPart1(input));
-        System.out.println("Part 2: " + countCaloriesPart2(input));
+    @Override
+    public String solvePart2() {
+        return String.valueOf(
+                sumCaloriesOfEachElfAndPutInSetInReverseOrder(getInputLines()).stream()
+                        .limit(3)
+                        .mapToLong(Long::longValue)
+                        .sum()
+        );
     }
 }

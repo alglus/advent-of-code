@@ -1,12 +1,13 @@
 package aoc2022;
 
 import org.junit.jupiter.api.Test;
-import util.Util;
 
 import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 
 public class Day02Tests {
 
@@ -20,93 +21,127 @@ public class Day02Tests {
 
     @Test
     public void score_in_empty_game_is_zero() {
-        List<String> input = Collections.emptyList();
-        long scorePart1 = Day02.rockPaperScissorsPart1(input);
-        long scorePart2 = Day02.rockPaperScissorsPart1(input);
+        var day02 = spy(Day02.class);
+        when(day02.getInputLines()).thenReturn(Collections.emptyList());
 
-        assertEquals(0, scorePart1);
-        assertEquals(0, scorePart2);
+        assertEquals("0", day02.solvePart1());
     }
 
     @Test
     public void part1_for_my_shape_rock() {
-        List<String> inputWin = List.of("C X");
-        List<String> inputDraw = List.of("A X");
-        List<String> inputLoss = List.of("B X");
+        var day02 = spy(Day02.class);
 
-        assertEquals(SCORE_ROCK + SCORE_WIN, Day02.rockPaperScissorsPart1(inputWin));
-        assertEquals(SCORE_ROCK + SCORE_DRAW, Day02.rockPaperScissorsPart1(inputDraw));
-        assertEquals(SCORE_ROCK + SCORE_LOSS, Day02.rockPaperScissorsPart1(inputLoss));
+        var inputWin = List.of("C X");
+        var inputDraw = List.of("A X");
+        var inputLoss = List.of("B X");
+
+        when(day02.getInputLines()).thenReturn(inputWin);
+        assertEquals(String.valueOf(SCORE_ROCK + SCORE_WIN), day02.solvePart1());
+
+        when(day02.getInputLines()).thenReturn(inputDraw);
+        assertEquals(String.valueOf(SCORE_ROCK + SCORE_DRAW), day02.solvePart1());
+
+        when(day02.getInputLines()).thenReturn(inputLoss);
+        assertEquals(String.valueOf(SCORE_ROCK + SCORE_LOSS), day02.solvePart1());
     }
 
     @Test
     public void part1_for_my_shape_paper() {
-        List<String> inputWin = List.of("A Y");
-        List<String> inputDraw = List.of("B Y");
-        List<String> inputLoss = List.of("C Y");
+        var day02 = spy(Day02.class);
 
-        assertEquals(SCORE_PAPER + SCORE_WIN, Day02.rockPaperScissorsPart1(inputWin));
-        assertEquals(SCORE_PAPER + SCORE_DRAW, Day02.rockPaperScissorsPart1(inputDraw));
-        assertEquals(SCORE_PAPER + SCORE_LOSS, Day02.rockPaperScissorsPart1(inputLoss));
+        var inputWin = List.of("A Y");
+        var inputDraw = List.of("B Y");
+        var inputLoss = List.of("C Y");
+
+        when(day02.getInputLines()).thenReturn(inputWin);
+        assertEquals(String.valueOf(SCORE_PAPER + SCORE_WIN), day02.solvePart1());
+
+        when(day02.getInputLines()).thenReturn(inputDraw);
+        assertEquals(String.valueOf(SCORE_PAPER + SCORE_DRAW), day02.solvePart1());
+
+        when(day02.getInputLines()).thenReturn(inputLoss);
+        assertEquals(String.valueOf(SCORE_PAPER + SCORE_LOSS), day02.solvePart1());
     }
 
     @Test
     public void part1_for_my_shape_scissors() {
-        List<String> inputWin = List.of("B Z");
-        List<String> inputDraw = List.of("C Z");
-        List<String> inputLoss = List.of("A Z");
+        var day02 = spy(Day02.class);
 
-        assertEquals(SCORE_SCISSORS + SCORE_WIN, Day02.rockPaperScissorsPart1(inputWin));
-        assertEquals(SCORE_SCISSORS + SCORE_DRAW, Day02.rockPaperScissorsPart1(inputDraw));
-        assertEquals(SCORE_SCISSORS + SCORE_LOSS, Day02.rockPaperScissorsPart1(inputLoss));
+        var inputWin = List.of("B Z");
+        var inputDraw = List.of("C Z");
+        var inputLoss = List.of("A Z");
+
+        when(day02.getInputLines()).thenReturn(inputWin);
+        assertEquals(String.valueOf(SCORE_SCISSORS + SCORE_WIN), day02.solvePart1());
+
+        when(day02.getInputLines()).thenReturn(inputDraw);
+        assertEquals(String.valueOf(SCORE_SCISSORS + SCORE_DRAW), day02.solvePart1());
+
+        when(day02.getInputLines()).thenReturn(inputLoss);
+        assertEquals(String.valueOf(SCORE_SCISSORS + SCORE_LOSS), day02.solvePart1());
     }
 
     @Test
     public void part2_for_result_win() {
-        List<String> inputRock = List.of("C Z");
-        List<String> inputPaper = List.of("A Z");
-        List<String> inputScissors = List.of("B Z");
+        var day02 = spy(Day02.class);
 
-        assertEquals(SCORE_WIN + SCORE_ROCK, Day02.rockPaperScissorsPart2(inputRock));
-        assertEquals(SCORE_WIN + SCORE_PAPER, Day02.rockPaperScissorsPart2(inputPaper));
-        assertEquals(SCORE_WIN + SCORE_SCISSORS, Day02.rockPaperScissorsPart2(inputScissors));
+        var inputRock = List.of("C Z");
+        var inputPaper = List.of("A Z");
+        var inputScissors = List.of("B Z");
+
+        when(day02.getInputLines()).thenReturn(inputRock);
+        assertEquals(String.valueOf(SCORE_WIN + SCORE_ROCK), day02.solvePart2());
+
+        when(day02.getInputLines()).thenReturn(inputPaper);
+        assertEquals(String.valueOf(SCORE_WIN + SCORE_PAPER), day02.solvePart2());
+
+        when(day02.getInputLines()).thenReturn(inputScissors);
+        assertEquals(String.valueOf(SCORE_WIN + SCORE_SCISSORS), day02.solvePart2());
     }
 
     @Test
     public void part2_for_result_draw() {
-        List<String> inputRock = List.of("A Y");
-        List<String> inputPaper = List.of("B Y");
-        List<String> inputScissors = List.of("C Y");
+        var day02 = spy(Day02.class);
 
-        assertEquals(SCORE_DRAW + SCORE_ROCK, Day02.rockPaperScissorsPart2(inputRock));
-        assertEquals(SCORE_DRAW + SCORE_PAPER, Day02.rockPaperScissorsPart2(inputPaper));
-        assertEquals(SCORE_DRAW + SCORE_SCISSORS, Day02.rockPaperScissorsPart2(inputScissors));
+        var inputRock = List.of("A Y");
+        var inputPaper = List.of("B Y");
+        var inputScissors = List.of("C Y");
+
+        when(day02.getInputLines()).thenReturn(inputRock);
+        assertEquals(String.valueOf(SCORE_DRAW + SCORE_ROCK), day02.solvePart2());
+
+        when(day02.getInputLines()).thenReturn(inputPaper);
+        assertEquals(String.valueOf(SCORE_DRAW + SCORE_PAPER), day02.solvePart2());
+
+        when(day02.getInputLines()).thenReturn(inputScissors);
+        assertEquals(String.valueOf(SCORE_DRAW + SCORE_SCISSORS), day02.solvePart2());
     }
 
     @Test
     public void part2_for_result_loss() {
-        List<String> inputRock = List.of("B X");
-        List<String> inputPaper = List.of("C X");
-        List<String> inputScissors = List.of("A X");
+        var day02 = spy(Day02.class);
 
-        assertEquals(SCORE_LOSS + SCORE_ROCK, Day02.rockPaperScissorsPart2(inputRock));
-        assertEquals(SCORE_LOSS + SCORE_PAPER, Day02.rockPaperScissorsPart2(inputPaper));
-        assertEquals(SCORE_LOSS + SCORE_SCISSORS, Day02.rockPaperScissorsPart2(inputScissors));
+        var inputRock = List.of("B X");
+        var inputPaper = List.of("C X");
+        var inputScissors = List.of("A X");
+
+        when(day02.getInputLines()).thenReturn(inputRock);
+        assertEquals(String.valueOf(SCORE_LOSS + SCORE_ROCK), day02.solvePart2());
+
+        when(day02.getInputLines()).thenReturn(inputPaper);
+        assertEquals(String.valueOf(SCORE_LOSS + SCORE_PAPER), day02.solvePart2());
+
+        when(day02.getInputLines()).thenReturn(inputScissors);
+        assertEquals(String.valueOf(SCORE_LOSS + SCORE_SCISSORS), day02.solvePart2());
     }
 
     @Test
     public void aoc_example_part1() {
-        List<String> input = Util.getLinesFromTestFile("aoc2022/input/day_02.txt");
-        long score = Day02.rockPaperScissorsPart1(input);
-
-        assertEquals(15, score);
+        assertEquals("15", new Day02().asTest().solvePart1());
     }
 
     @Test
     public void aoc_example_part2() {
-        List<String> input = Util.getLinesFromTestFile("aoc2022/input/day_02.txt");
-        long score = Day02.rockPaperScissorsPart2(input);
-
-        assertEquals(12, score);
+        assertEquals("12", new Day02().asTest().solvePart2());
     }
 }

@@ -1,50 +1,29 @@
 package aoc2022;
 
-import util.*;
-import util.graph.*;
+import util.Dijkstra;
+import util.Directions;
+import util.Position;
+import util.Range;
+import util.graph.Edge;
+import util.graph.Graph;
+import util.graph.SimpleNode;
 
-import java.util.List;
 import java.util.Optional;
 
+import static util.Input.convertCharInputIntoMatrix;
 import static util.Util.concatenate;
-import static util.Util.convertCharInputIntoMatrix;
 
-public class Day12 {
+public class Day12 extends Puzzle2022 {
 
-    /* --- Part One --- */
-    public static int hillClimbingPart1(List<String> input) {
-
-        var heightMatrix = convertCharInputIntoMatrix(input);
-        var graph = buildGraphFromMatrix(heightMatrix);
-
-        var startNode = graph.getNodes().stream()
-                .filter(node -> node.getName().equals("S"))
-                .findFirst().orElseThrow();
-
-        return Dijkstra
-                .execute(graph, startNode, node -> node.getName().equals("E"))
-                .getShortestPathLength().orElseThrow();
+    public Day12() {
+        super(12);
     }
 
-
-    /* --- Part Two --- */
-    public static int hillClimbingPart2(List<String> input) {
-
-        var heightMatrix = convertCharInputIntoMatrix(input);
-        var graph = buildGraphFromMatrix(heightMatrix);
-
-        return graph.getNodes().stream()
-                .filter(node -> node.getName().equals("a") || node.getName().equals("S"))
-                .map(node -> Dijkstra.execute(graph, node, n -> n.getName().equals("E")).getShortestPathLength())
-                .filter(Optional::isPresent)
-                .map(Optional::get)
-                .sorted()
-                .findFirst().orElseThrow();
+    public static void main(String[] args) {
+        new Day12().printSolutions();
     }
 
-
-    private static Graph buildGraphFromMatrix(final char[][] heightMatrix) {
-
+    private Graph buildGraphFromMatrix(final char[][] heightMatrix) {
         final var graph = new Graph();
         final int weight = 1;
 
@@ -79,7 +58,7 @@ public class Day12 {
         return graph;
     }
 
-    private static char correctHeightOfStartAndEndNodes(char height) {
+    private char correctHeightOfStartAndEndNodes(char height) {
         return switch (height) {
             case 'S' -> 'a';
             case 'E' -> 'z';
@@ -87,16 +66,35 @@ public class Day12 {
         };
     }
 
-    private static boolean isPossibleToStepOntoNeighborPosition(char currentHeight, char neighborHeight) {
+    private boolean isPossibleToStepOntoNeighborPosition(char currentHeight, char neighborHeight) {
         return neighborHeight - currentHeight <= 1;
     }
 
+    @Override
+    public String solvePart1() {
+        var heightMatrix = convertCharInputIntoMatrix(getInputLines());
+        var graph = buildGraphFromMatrix(heightMatrix);
 
-    public static void main(String[] args) {
-        List<String> input = Util.getLinesFromPuzzleFile("aoc2022/input/day_12.txt");
+        var startNode = graph.getNodes().stream()
+                .filter(node -> node.getName().equals("S"))
+                .findFirst().orElseThrow();
 
-        System.out.println("Part 1: " + Day12.hillClimbingPart1(input));
-        System.out.println("Part 2: " + Day12.hillClimbingPart2(input));
+        return String.valueOf(Dijkstra
+                .execute(graph, startNode, node -> node.getName().equals("E"))
+                .getShortestPathLength().orElseThrow());
     }
 
+    @Override
+    public String solvePart2() {
+        var heightMatrix = convertCharInputIntoMatrix(getInputLines());
+        var graph = buildGraphFromMatrix(heightMatrix);
+
+        return String.valueOf(graph.getNodes().stream()
+                .filter(node -> node.getName().equals("a") || node.getName().equals("S"))
+                .map(node -> Dijkstra.execute(graph, node, n -> n.getName().equals("E")).getShortestPathLength())
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .sorted()
+                .findFirst().orElseThrow());
+    }
 }

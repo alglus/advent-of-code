@@ -1,37 +1,25 @@
 package aoc2022;
 
-import util.Util;
+import lombok.Getter;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class Day08 {
+public class Day08 extends Puzzle2022 {
 
-    /* --- Part One --- */
-    public static int treetopTreeHousePart1(List<String> input) {
-
-        Tree[][] grid = convertToTreeGrid(input);
-
-        markHiddenTrees(grid);
-
-        return countVisibleTrees(grid);
+    public Day08() {
+        super(8);
     }
 
-
-    /* --- Part Two --- */
-    public static int treetopTreeHousePart2(List<String> input) {
-
-        Tree[][] grid = convertToTreeGrid(input);
-
-        return findHighestScenicScore(grid);
+    public static void main(String[] args) {
+        new Day08().printSolutions();
     }
 
-
-    private static Tree[][] convertToTreeGrid(List<String> input) {
+    private Tree[][] convertToTreeGrid(List<String> input) {
         int gridWidth = input.get(0).length();
         int gridHeight = input.size();
 
-        Tree[][] grid = new Tree[gridHeight][gridWidth];
+        var grid = new Tree[gridHeight][gridWidth];
 
         for (int r = 0; r < gridHeight; r++) {
             for (int c = 0; c < gridWidth; c++) {
@@ -42,30 +30,30 @@ public class Day08 {
         return grid;
     }
 
-    private static void markHiddenTrees(Tree[][] grid) {
+    private void markHiddenTrees(Tree[][] grid) {
         markFromLeftToRight(grid);
         markFromRightToLeft(grid);
         markFromTopToBottom(grid);
         markFromBottomToTop(grid);
     }
 
-    private static void markFromLeftToRight(Tree[][] grid) {
+    private void markFromLeftToRight(Tree[][] grid) {
         checkHorizontally(grid, 0, grid[0].length - 2, +1, true);
     }
 
-    private static void markFromRightToLeft(Tree[][] grid) {
+    private void markFromRightToLeft(Tree[][] grid) {
         checkHorizontally(grid, grid[0].length - 1, 1, -1, false);
     }
 
-    private static void markFromTopToBottom(Tree[][] grid) {
+    private void markFromTopToBottom(Tree[][] grid) {
         checkVertically(grid, 0, grid.length - 2, +1, false);
     }
 
-    private static void markFromBottomToTop(Tree[][] grid) {
+    private void markFromBottomToTop(Tree[][] grid) {
         checkVertically(grid, grid.length - 1, 1, -1, false);
     }
 
-    private static void checkHorizontally(Tree[][] grid, int startIndex, int endIndex, int increment, boolean firstCheck) {
+    private void checkHorizontally(Tree[][] grid, int startIndex, int endIndex, int increment, boolean firstCheck) {
         int gridHeight = grid.length;
 
         int maxTreeHeight = -1;
@@ -78,7 +66,7 @@ public class Day08 {
         }
     }
 
-    private static void checkVertically(Tree[][] grid, int startIndex, int endIndex, int increment, boolean firstCheck) {
+    private void checkVertically(Tree[][] grid, int startIndex, int endIndex, int increment, boolean firstCheck) {
         int gridWidth = grid[0].length;
 
         int maxTreeHeight = -1;
@@ -91,7 +79,7 @@ public class Day08 {
         }
     }
 
-    private static int markTreeHiddenOrRemarkAsVisible(Tree tree, boolean firstCheck, int maxTreeHeight) {
+    private int markTreeHiddenOrRemarkAsVisible(Tree tree, boolean firstCheck, int maxTreeHeight) {
         int treeHeight = tree.getHeight();
 
         if (treeHeight <= maxTreeHeight) {
@@ -106,21 +94,121 @@ public class Day08 {
         return maxTreeHeight;
     }
 
-    private static int countVisibleTrees(Tree[][] grid) {
+    private int countVisibleTrees(Tree[][] grid) {
         return (int) Arrays.stream(grid).flatMap(Arrays::stream).filter(Tree::isVisible).count();
     }
 
+    private int findHighestScenicScore(Tree[][] grid) {
+        int highestScenicScore = 0;
+
+        for (int row = 0; row < grid.length; row++) {
+            for (int col = 0; col < grid[0].length; col++) {
+
+                int scenicScore = calculateScenicScore(grid, row, col);
+                highestScenicScore = Math.max(scenicScore, highestScenicScore);
+            }
+        }
+
+        return highestScenicScore;
+    }
+
+    private int calculateScenicScore(Tree[][] grid, int row, int col) {
+        int viewingDistanceLeft = measureViewingDistanceLeft(grid, row, col);
+        int viewingDistanceRight = measureViewingDistanceRight(grid, row, col);
+        int viewingDistanceUp = measureViewingDistanceUp(grid, row, col);
+        int viewingDistanceDown = measureViewingDistanceDown(grid, row, col);
+
+        return viewingDistanceLeft * viewingDistanceRight * viewingDistanceUp * viewingDistanceDown;
+    }
+
+    private int measureViewingDistanceLeft(Tree[][] grid, int row, int col) {
+        int treeHeight = grid[row][col].getHeight();
+        int visibleTrees = 0;
+
+        for (int c = col - 1; c >= 0; c--) {
+            int otherTreeHeight = grid[row][c].getHeight();
+
+            if (otherTreeHeight >= treeHeight) {
+                visibleTrees++;
+                break;
+            }
+            visibleTrees++;
+        }
+        return visibleTrees;
+    }
+
+    private int measureViewingDistanceRight(Tree[][] grid, int row, int col) {
+        int treeHeight = grid[row][col].getHeight();
+        int visibleTrees = 0;
+
+        for (int c = col + 1; c < grid[row].length; c++) {
+            int otherTreeHeight = grid[row][c].getHeight();
+
+            if (otherTreeHeight >= treeHeight) {
+                visibleTrees++;
+                break;
+            }
+            visibleTrees++;
+        }
+        return visibleTrees;
+    }
+
+    private int measureViewingDistanceUp(Tree[][] grid, int row, int col) {
+        int treeHeight = grid[row][col].getHeight();
+        int visibleTrees = 0;
+
+        for (int r = row - 1; r >= 0; r--) {
+            int otherTreeHeight = grid[r][col].getHeight();
+
+            if (otherTreeHeight >= treeHeight) {
+                visibleTrees++;
+                break;
+            }
+            visibleTrees++;
+        }
+        return visibleTrees;
+    }
+
+    private int measureViewingDistanceDown(Tree[][] grid, int row, int col) {
+        int treeHeight = grid[row][col].getHeight();
+        int visibleTrees = 0;
+
+        for (int r = row + 1; r < grid.length; r++) {
+            int otherTreeHeight = grid[r][col].getHeight();
+
+            if (otherTreeHeight >= treeHeight) {
+                visibleTrees++;
+                break;
+            }
+            visibleTrees++;
+        }
+        return visibleTrees;
+    }
+
+    @Override
+    public String solvePart1() {
+        var grid = convertToTreeGrid(getInputLines());
+
+        markHiddenTrees(grid);
+
+        return String.valueOf(countVisibleTrees(grid));
+    }
+
+    @Override
+    public String solvePart2() {
+        var grid = convertToTreeGrid(getInputLines());
+
+        return String.valueOf(findHighestScenicScore(grid));
+    }
+
     private static class Tree {
+        @Getter
         private final int height;
 
         private boolean hidden = false;
 
         public Tree(String heightString) {
             this.height = Integer.parseInt(heightString);
-        }
-
-        public int getHeight() {
-            return height;
         }
 
         public boolean isVisible() {
@@ -139,101 +227,6 @@ public class Day08 {
         public String toString() {
             return height + (hidden ? "H" : " ");
         }
-
     }
 
-    private static int findHighestScenicScore(Tree[][] grid) {
-        int highestScenicScore = 0;
-
-        for (int row = 0; row < grid.length; row++) {
-            for (int col = 0; col < grid[0].length; col++) {
-
-                int scenicScore = calculateScenicScore(grid, row, col);
-                highestScenicScore = Math.max(scenicScore, highestScenicScore);
-            }
-        }
-
-        return highestScenicScore;
-    }
-
-    private static int calculateScenicScore(Tree[][] grid, int row, int col) {
-        int viewingDistanceLeft = measureViewingDistanceLeft(grid, row, col);
-        int viewingDistanceRight = measureViewingDistanceRight(grid, row, col);
-        int viewingDistanceUp = measureViewingDistanceUp(grid, row, col);
-        int viewingDistanceDown = measureViewingDistanceDown(grid, row, col);
-
-        return viewingDistanceLeft * viewingDistanceRight * viewingDistanceUp * viewingDistanceDown;
-    }
-
-    private static int measureViewingDistanceLeft(Tree[][] grid, int row, int col) {
-        int treeHeight = grid[row][col].getHeight();
-        int visibleTrees = 0;
-
-        for (int c = col - 1; c >= 0; c--) {
-            int otherTreeHeight = grid[row][c].getHeight();
-
-            if (otherTreeHeight >= treeHeight) {
-                visibleTrees++;
-                break;
-            }
-            visibleTrees++;
-        }
-        return visibleTrees;
-    }
-
-    private static int measureViewingDistanceRight(Tree[][] grid, int row, int col) {
-        int treeHeight = grid[row][col].getHeight();
-        int visibleTrees = 0;
-
-        for (int c = col + 1; c < grid[row].length; c++) {
-            int otherTreeHeight = grid[row][c].getHeight();
-
-            if (otherTreeHeight >= treeHeight) {
-                visibleTrees++;
-                break;
-            }
-            visibleTrees++;
-        }
-        return visibleTrees;
-    }
-
-    private static int measureViewingDistanceUp(Tree[][] grid, int row, int col) {
-        int treeHeight = grid[row][col].getHeight();
-        int visibleTrees = 0;
-
-        for (int r = row - 1; r >= 0; r--) {
-            int otherTreeHeight = grid[r][col].getHeight();
-
-            if (otherTreeHeight >= treeHeight) {
-                visibleTrees++;
-                break;
-            }
-            visibleTrees++;
-        }
-        return visibleTrees;
-    }
-
-    private static int measureViewingDistanceDown(Tree[][] grid, int row, int col) {
-        int treeHeight = grid[row][col].getHeight();
-        int visibleTrees = 0;
-
-        for (int r = row + 1; r < grid.length; r++) {
-            int otherTreeHeight = grid[r][col].getHeight();
-
-            if (otherTreeHeight >= treeHeight) {
-                visibleTrees++;
-                break;
-            }
-            visibleTrees++;
-        }
-        return visibleTrees;
-    }
-
-
-    public static void main(String[] args) {
-        List<String> input = Util.getLinesFromPuzzleFile("aoc2022/input/day_08.txt");
-
-        System.out.println("Part 1: " + Day08.treetopTreeHousePart1(input));
-        System.out.println("Part 2: " + Day08.treetopTreeHousePart2(input));
-    }
 }

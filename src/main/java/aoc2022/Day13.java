@@ -1,68 +1,32 @@
 package aoc2022;
 
-import util.Util;
+import util.Input;
 
 import java.util.*;
 
 import static util.Util.splitByCommaIgnoringSquareBrackets;
 
-public class Day13 {
+public class Day13 extends Puzzle2022 {
 
-    /* --- Part One --- */
-    public static int distressSignalPart1(List<String> input) {
-
-        var packetPairsInRightOrder = new ArrayList<Integer>();
-
-        for (int i = 0, pairIndex = 1; i < input.size(); i += 3, pairIndex++) {
-
-            var packets = new Packets(input.get(i), input.get(i + 1));
-            var areInRightOrder = arePacketsInRightOrder(packets);
-
-            if (areInRightOrder.isEmpty()) {
-                throw new IllegalArgumentException("Both packets are identical. This should not happen, because the " +
-                        "exercise does not define a behavior for this case and the input should not have such packet pairs.");
-            } else if (areInRightOrder.get()) {
-                packetPairsInRightOrder.add(pairIndex);
-            }
-        }
-
-        return packetPairsInRightOrder.stream()
-                .reduce(Integer::sum)
-                .orElse(0);
+    public Day13() {
+        super(13);
     }
 
+    public static void main(String[] args) {
+//        String s1 = "[1,1,5,1,1]";
+//        String s2 = "[[1],[2,3,4]]";
+//        System.out.println(arePacketsInRightOrder(new Packets(s1,s2)));
 
-    /* --- Part Two --- */
-    public static int distressSignalPart2(List<String> input) {
-        List<String> packets = Util.removeEmptyLines(input);
-        packets.add("[[2]]");
-        packets.add("[[6]]");
-
-        List<String> orderedPackets = orderPackets(packets);
-
-        return calculateDecoderKey(orderedPackets);
+        System.out.println("Part 1: " + new Day13().solvePart1());
     }
 
-
-    private record Packets(String l /* =left */, String r /* =right */) {
-        public String[] values() {
-            return new String[]{l, r};
-        }
-
-        @Override
-        public String toString() {
-            return "Packets(l=" + l + ", r=" + r + ")";
-        }
-    }
-
-    private static Optional<Boolean> arePacketsInRightOrder(Packets packets) {
-
+    private Optional<Boolean> arePacketsInRightOrder(Packets packets) {
         var packetsContent = extractValuesFromList(packets);
 
         return compareListValues(packetsContent);
     }
 
-    private static Packets extractValuesFromList(Packets packets) {
+    private Packets extractValuesFromList(Packets packets) {
         var extractedStrings = Arrays.stream(packets.values())
                 .map(packet -> {
                     if (isList(packet)) return removeSurroundingBrackets(packet);
@@ -73,11 +37,11 @@ public class Day13 {
         return new Packets(extractedStrings[0], extractedStrings[1]);
     }
 
-    private static String removeSurroundingBrackets(String list) {
+    private String removeSurroundingBrackets(String list) {
         return list.substring(1, list.length() - 1);
     }
 
-    private static Optional<Boolean> compareListValues(Packets packetsContent) {
+    private Optional<Boolean> compareListValues(Packets packetsContent) {
         var leftValues = splitIntoValues(packetsContent.l());
         var rightValues = splitIntoValues(packetsContent.r());
 
@@ -91,8 +55,9 @@ public class Day13 {
 
             if (isList(leftVal) || isList(rightVal)) {
                 var isSubListInRightOrder = arePacketsInRightOrder(new Packets(leftVal, rightVal));
-                if (isSubListInRightOrder.isEmpty())
+                if (isSubListInRightOrder.isEmpty()) {
                     continue;
+                }
                 return isSubListInRightOrder;
             }
 
@@ -103,20 +68,18 @@ public class Day13 {
         return Optional.empty();
     }
 
-    private static boolean isList(String value) {
-        return value.length() > 0 && value.charAt(0) == '[';
+    private boolean isList(String value) {
+        return !value.isEmpty() && value.charAt(0) == '[';
     }
 
-    private static String[] splitIntoValues(String list) {
-        if (list.isBlank())
-            return new String[0];
+    private String[] splitIntoValues(String list) {
+        if (list.isBlank()) return new String[0];
+
         return splitByCommaIgnoringSquareBrackets(list).toArray(String[]::new);
     }
 
-    private static List<String> orderPackets(List<String> packets) {
-
+    private List<String> orderPackets(List<String> packets) {
         List<String> orderedPackets = new ArrayList<>(packets);
-
         Set<Packets> wrongPairs = new HashSet<>();
 
         while (true) {
@@ -128,7 +91,7 @@ public class Day13 {
 
             for (int i = 0; i < orderedPackets.size(); i++) {
                 if (i == orderedPackets.size() - 1) {
-                    if (indexesToSwap.size() == 0) throw new IllegalStateException("no no no");
+                    if (indexesToSwap.isEmpty()) throw new IllegalStateException("no no no");
                     indexesToSwap.add(i);
                     swapPackets(orderedPackets, indexesToSwap);
                     allOrdered = false;
@@ -165,7 +128,7 @@ public class Day13 {
         return orderedPackets;
     }
 
-    private static void swapPackets(List<String> packets, ArrayList<Integer> indexesToSwap) {
+    private void swapPackets(List<String> packets, ArrayList<Integer> indexesToSwap) {
         int i1 = indexesToSwap.get(0);
         int i2 = indexesToSwap.get(1);
 
@@ -174,7 +137,7 @@ public class Day13 {
         packets.set(i2, packet1);
     }
 
-    private static int calculateDecoderKey(List<String> packets) {
+    private int calculateDecoderKey(List<String> packets) {
         int decoderKey = 1;
         boolean found2 = false;
         boolean found6 = false;
@@ -197,15 +160,54 @@ public class Day13 {
         return decoderKey;
     }
 
+    @Override
+    public String solvePart1() {
+        var input = getInputLines();
+        var packetPairsInRightOrder = new ArrayList<Integer>();
 
-    public static void main(String[] args) {
-//        String s1 = "[1,1,5,1,1]";
-//        String s2 = "[[1],[2,3,4]]";
-//
-//        System.out.println(arePacketsInRightOrder(new Packets(s1,s2)));
+        for (int i = 0, pairIndex = 1; i < input.size(); i += 3, pairIndex++) {
 
-        List<String> input = Util.getLinesFromPuzzleFile("aoc2022/input/day_13.txt");
+            var packets = new Packets(input.get(i), input.get(i + 1));
+            var areInRightOrder = arePacketsInRightOrder(packets);
 
-        System.out.println("Part 1: " + Day13.distressSignalPart1(input));
+            if (areInRightOrder.isEmpty()) {
+                throw new IllegalArgumentException("Both packets are identical. This should not happen, because the " +
+                        "exercise does not define a behavior for this case and the input should not have such packet pairs.");
+            } else if (areInRightOrder.get()) {
+                packetPairsInRightOrder.add(pairIndex);
+            }
+        }
+
+        return String.valueOf(packetPairsInRightOrder.stream()
+                .reduce(Integer::sum)
+                .orElse(0));
+    }
+
+    @Override
+    public String solvePart2() {
+        List<String> packets = Input.removeEmptyLines(getInputLines());
+        packets.add("[[2]]");
+        packets.add("[[6]]");
+
+        List<String> orderedPackets = orderPackets(packets);
+
+        return String.valueOf(calculateDecoderKey(orderedPackets));
+    }
+
+    /**
+     * Packets
+     *
+     * @param l left
+     * @param r right
+     */
+    private record Packets(String l, String r) {
+        public String[] values() {
+            return new String[]{l, r};
+        }
+
+        @Override
+        public String toString() {
+            return "Packets(l=" + l + ", r=" + r + ")";
+        }
     }
 }
