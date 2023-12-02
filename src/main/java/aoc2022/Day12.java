@@ -11,7 +11,7 @@ import util.graph.SimpleNode;
 import java.util.Optional;
 
 import static util.Input.convertCharInputIntoMatrix;
-import static util.Util.concatenate;
+import static util.StringUtil.concatenate;
 
 public class Day12 extends Puzzle2022 {
 

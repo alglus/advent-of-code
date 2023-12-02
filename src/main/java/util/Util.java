@@ -1,24 +1,12 @@
 package util;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Util {
 
     public static boolean divisible(long numerator, long denominator) {
         return numerator % denominator == 0;
-    }
-
-    public static String getLastCharacter(String string) {
-        return string.substring(string.length() - 1);
-    }
-
-    public static String concatenate(String delimiter, int... numbers) {
-        return Arrays.stream(numbers)
-                .mapToObj(Integer::toString)
-                .collect(Collectors.joining(delimiter));
     }
 
     public static List<String> splitByCommaIgnoringSquareBrackets(String string) {

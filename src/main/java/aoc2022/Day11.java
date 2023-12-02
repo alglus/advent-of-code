@@ -7,8 +7,8 @@ import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
+import static util.StringUtil.getLastCharacter;
 import static util.Util.divisible;
-import static util.Util.getLastCharacter;
 
 public class Day11 extends Puzzle2022 {
 
