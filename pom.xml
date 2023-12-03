@@ -38,7 +38,11 @@
             <version>5.7.0</version>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>one.util</groupId>
+            <artifactId>streamex</artifactId>
+            <version>0.8.2</version>
+        </dependency>
     </dependencies>
 
     <build>
