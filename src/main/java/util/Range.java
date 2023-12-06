@@ -7,11 +7,11 @@ public record Range(int fromInc, int toInc) {
     }
 
     public boolean inside(Range other) {
-        return this.fromInc >= other.fromInc && this.toInc <= other.toInc;
+        return other.fromInc <= this.fromInc && this.toInc <= other.toInc;
     }
 
     public boolean overlaps(Range other) {
-        return this.contains(other.fromInc) || this.contains(other.toInc);
+        return this.fromInc <= other.toInc && other.fromInc <= this.toInc;
     }
 
 }

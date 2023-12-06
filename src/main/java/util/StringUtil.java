@@ -25,6 +25,10 @@ public class StringUtil {
 
     public static boolean isDigitAt(String string, int index) {
         var character = string.charAt(index);
+        return isDigit(character);
+    }
+
+    public static boolean isDigit(char character) {
         return character >= 48 && character <= 57;
     }
 
