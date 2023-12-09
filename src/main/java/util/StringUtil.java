@@ -38,4 +38,8 @@ public class StringUtil {
                 .toString();
     }
 
+    public static String[] splitByWhitespaces(String string) {
+        return string.split("\\s+");
+    }
+
 }

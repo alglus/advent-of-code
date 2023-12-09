@@ -52,4 +52,12 @@ public class Util {
         return true;
     }
 
+    public static <T> List<T> initializeAndPopulateList(int listSize, T initValue) {
+        List<T> list = new ArrayList<>(listSize);
+        for (int i = 0; i < listSize; i++) {
+            list.add(initValue);
+        }
+        return list;
+    }
+
 }
