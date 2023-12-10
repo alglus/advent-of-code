@@ -38,8 +38,8 @@ public class Day10 extends Puzzle2022 {
         }
     }
 
-    private Range getSpritePixelsRange(int spritePosition) {
-        return new Range(spritePosition - 1, spritePosition + 1);
+    private Range<Integer> getSpritePixelsRange(int spritePosition) {
+        return new Range<>(spritePosition - 1, spritePosition + 1);
     }
 
     private List<StringBuilder> initializeImage(int imageHeight) {

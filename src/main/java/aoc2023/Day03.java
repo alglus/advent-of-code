@@ -80,7 +80,7 @@ public class Day03 extends Puzzle2023 {
 
         schematic.numbers.get(y).add(
                 new Number(
-                        new Range(rangeStart, rangeEnd),
+                        new Range<>(rangeStart, rangeEnd),
                         Integer.parseInt(number.toString())));
 
         return rangeEnd;
@@ -100,8 +100,8 @@ public class Day03 extends Puzzle2023 {
         return sum;
     }
 
-    private int getNumberIfAdjacentToAnySymbol(Map<Integer, Range> rangesToSearch, Number number, Schematic schematic) {
-        for (Entry<Integer, Range> rangeToSearch : rangesToSearch.entrySet()) {
+    private int getNumberIfAdjacentToAnySymbol(Map<Integer, Range<Integer>> rangesToSearch, Number number, Schematic schematic) {
+        for (Entry<Integer, Range<Integer>> rangeToSearch : rangesToSearch.entrySet()) {
             var y = rangeToSearch.getKey();
             var adjacentRange = rangeToSearch.getValue();
 
@@ -114,24 +114,24 @@ public class Day03 extends Puzzle2023 {
         return 0;
     }
 
-    private Map<Integer, Range> getAdjacentRangesToNumber(Number number, int y, Matrix matrix) {
+    private Map<Integer, Range<Integer>> getAdjacentRangesToNumber(Number number, int y, Matrix matrix) {
         var adjacentRangeX = getAdjacentRangeX(number.range.fromInc(), number.range.toInc(), matrix);
         return expandRangeVerticallyAndLimitToMatrix(y, adjacentRangeX, matrix);
     }
 
-    private Map<Integer, Range> getAdjacentRangesToSymbol(Symbol symbol, int y, Matrix matrix) {
+    private Map<Integer, Range<Integer>> getAdjacentRangesToSymbol(Symbol symbol, int y, Matrix matrix) {
         var adjacentRangeX = getAdjacentRangeX(symbol.point.x(), symbol.point.x(), matrix);
         return expandRangeVerticallyAndLimitToMatrix(y, adjacentRangeX, matrix);
     }
 
-    private Range getAdjacentRangeX(int rangeStart, int rangeEnd, Matrix matrix) {
-        return new Range(
+    private Range<Integer> getAdjacentRangeX(int rangeStart, int rangeEnd, Matrix matrix) {
+        return new Range<>(
                 boundedX(rangeStart - 1, matrix),
                 boundedX(rangeEnd + 1, matrix)
         );
     }
 
-    private Map<Integer, Range> expandRangeVerticallyAndLimitToMatrix(int y, Range rangeX, Matrix matrix) {
+    private Map<Integer, Range<Integer>> expandRangeVerticallyAndLimitToMatrix(int y, Range<Integer> rangeX, Matrix matrix) {
         return Stream
                 .of(y - 1, y, y + 1)
                 .filter(n -> n >= 0 && n < matrix.heigth)
@@ -164,10 +164,10 @@ public class Day03 extends Puzzle2023 {
         return sum;
     }
 
-    private List<Number> findNumbersAdjacentToSymbol(Map<Integer, Range> rangesAroundSymbol, Schematic schematic) {
+    private List<Number> findNumbersAdjacentToSymbol(Map<Integer, Range<Integer>> rangesAroundSymbol, Schematic schematic) {
         List<Number> adjacentNumbers = new ArrayList<>();
 
-        for (Entry<Integer, Range> rangeAroundSymbol : rangesAroundSymbol.entrySet()) {
+        for (Entry<Integer, Range<Integer>> rangeAroundSymbol : rangesAroundSymbol.entrySet()) {
             var y = rangeAroundSymbol.getKey();
             var adjacentRange = rangeAroundSymbol.getValue();
 
@@ -217,7 +217,7 @@ public class Day03 extends Puzzle2023 {
     }
 
     private record Number(
-            Range range,
+            Range<Integer> range,
             int value
     ) {
     }

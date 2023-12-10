@@ -1,17 +1,19 @@
 package util;
 
-public record Range(int fromInc, int toInc) {
+public record Range<T extends Number & Comparable<T>>(T fromInc, T toInc) {
 
-    public boolean contains(int point) {
-        return this.fromInc <= point && point <= toInc;
+    public boolean contains(T value) {
+        return fromInc.compareTo(value) <= 0 && value.compareTo(toInc) <= 0;
     }
 
-    public boolean inside(Range other) {
-        return other.fromInc <= this.fromInc && this.toInc <= other.toInc;
+    public boolean inside(Range<T> other) {
+        return other.fromInc.compareTo(this.fromInc) <= 0
+                && this.toInc.compareTo(other.toInc) <= 0;
     }
 
-    public boolean overlaps(Range other) {
-        return this.fromInc <= other.toInc && other.fromInc <= this.toInc;
+    public boolean overlaps(Range<T> other) {
+        return this.fromInc.compareTo(other.toInc) <= 0
+                && other.fromInc.compareTo(this.toInc) <= 0;
     }
 
 }

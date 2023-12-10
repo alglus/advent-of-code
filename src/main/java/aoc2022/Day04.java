@@ -12,20 +12,20 @@ public class Day04 extends Puzzle2022 {
         new Day04().printSolutions();
     }
 
-    private Range extractRangeFrom(String section) {
+    private Range<Integer> extractRangeFrom(String section) {
         var rangeLimits = section.split("-");
 
-        return new Range(
+        return new Range<>(
                 Integer.parseInt(rangeLimits[0]),
                 Integer.parseInt(rangeLimits[1])
         );
     }
 
-    private boolean sectionsFullyOverlap(Range range1, Range range2) {
+    private boolean sectionsFullyOverlap(Range<Integer> range1, Range<Integer> range2) {
         return range1.inside(range2) || range2.inside(range1);
     }
 
-    private boolean sectionsOverlap(Range range1, Range range2) {
+    private boolean sectionsOverlap(Range<Integer> range1, Range<Integer> range2) {
         return range1.overlaps(range2) || range2.overlaps(range1);
     }
 
@@ -36,8 +36,8 @@ public class Day04 extends Puzzle2022 {
         for (String pair : getInputLines()) {
             String[] sections = pair.split(",");
 
-            Range range1 = extractRangeFrom(sections[0]);
-            Range range2 = extractRangeFrom(sections[1]);
+            var range1 = extractRangeFrom(sections[0]);
+            var range2 = extractRangeFrom(sections[1]);
 
             if (sectionsFullyOverlap(range1, range2)) {
                 fullyOverlappingPairs++;
@@ -54,8 +54,8 @@ public class Day04 extends Puzzle2022 {
         for (String pair : getInputLines()) {
             String[] sections = pair.split(",");
 
-            Range range1 = extractRangeFrom(sections[0]);
-            Range range2 = extractRangeFrom(sections[1]);
+            var range1 = extractRangeFrom(sections[0]);
+            var range2 = extractRangeFrom(sections[1]);
 
             if (sectionsOverlap(range1, range2)) {
                 overlappingPairs++;

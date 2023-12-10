@@ -4,15 +4,15 @@ public class Position {
 
     private int x;
     private int y;
-    private Range rangeX;
-    private Range rangeY;
+    private Range<Integer> rangeX;
+    private Range<Integer> rangeY;
 
     public Position(int x, int y) {
-        var maxRange = new Range(Integer.MIN_VALUE, Integer.MAX_VALUE);
+        var maxRange = new Range<>(Integer.MIN_VALUE, Integer.MAX_VALUE);
         new Position(x, y, maxRange, maxRange);
     }
 
-    public Position(int x, int y, Range rangeX, Range rangeY) {
+    public Position(int x, int y, Range<Integer> rangeX, Range<Integer> rangeY) {
         this.x = x;
         this.y = y;
         this.rangeX = rangeX;

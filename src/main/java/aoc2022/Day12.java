@@ -33,7 +33,7 @@ public class Day12 extends Puzzle2022 {
         for (int y = 0; y < matrixHeight; y++) {
             for (int x = 0; x < matrixWidth; x++) {
 
-                var currentPosition = new Position(x, y, new Range(0, matrixWidth - 1), new Range(0, matrixHeight - 1));
+                var currentPosition = new Position(x, y, new Range<>(0, matrixWidth - 1), new Range<>(0, matrixHeight - 1));
                 var currentHeight = heightMatrix[y][x];
                 var currentNode = graph.addNodeOrGetExisting(new SimpleNode(concatenate(".", x, y), currentHeight));
                 currentHeight = correctHeightOfStartAndEndNodes(currentHeight);
