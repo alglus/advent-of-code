@@ -18,7 +18,16 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.30</version>
-            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.14.0</version>
+        </dependency>
+        <dependency>
+            <groupId>one.util</groupId>
+            <artifactId>streamex</artifactId>
+            <version>0.8.2</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -38,11 +47,6 @@
             <version>5.7.0</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>one.util</groupId>
-            <artifactId>streamex</artifactId>
-            <version>0.8.2</version>
-        </dependency>
     </dependencies>
 
     <build>
@@ -50,7 +54,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M9</version>
+                <version>3.2.2</version>
                 <configuration>
                     <includes>
                         <include>*</include>

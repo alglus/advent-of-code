@@ -1,21 +1,21 @@
 package util;
 
-public class Matrix {
-    public final char[][] matrix;
+public class Matrix<T> {
+    public final T[][] matrix;
     public final int width;
     public final int heigth;
 
-    private Matrix(char[][] matrix, int width, int heigth) {
+    private Matrix(T[][] matrix, int width, int heigth) {
         this.matrix = matrix;
         this.width = width;
         this.heigth = heigth;
     }
 
-    public static Matrix of(char[][] matrix) {
-        return new Matrix(matrix, matrix[0].length, matrix.length);
+    public static <T> Matrix<T> of(T[][] matrix) {
+        return new Matrix<>(matrix, matrix[0].length, matrix.length);
     }
 
-    public char xy(int x, int y) {
+    public T xy(int x, int y) {
         return matrix[y][x];
     }
 

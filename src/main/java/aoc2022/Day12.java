@@ -23,7 +23,7 @@ public class Day12 extends Puzzle2022 {
         new Day12().printSolutions();
     }
 
-    private Graph buildGraphFromMatrix(final char[][] heightMatrix) {
+    private Graph buildGraphFromMatrix(final Character[][] heightMatrix) {
         final var graph = new Graph();
         final int weight = 1;
 

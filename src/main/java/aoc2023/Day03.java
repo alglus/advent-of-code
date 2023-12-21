@@ -23,12 +23,12 @@ public class Day03 extends Puzzle2023 {
         new Day03().printSolutions();
     }
 
-    private int sumAllNumbersAdjacentToSymbolsOnSchematic(Matrix matrix) {
+    private int sumAllNumbersAdjacentToSymbolsOnSchematic(Matrix<Character> matrix) {
         var schematic = parseSchematicAndSaveData(matrix);
         return sumAllAdjacentNumbersToASymbol(schematic, matrix);
     }
 
-    private Schematic parseSchematicAndSaveData(Matrix matrix) {
+    private Schematic parseSchematicAndSaveData(Matrix<Character> matrix) {
         var schematic = new Schematic(new ArrayList<>(), new ArrayList<>());
 
         for (int y = 0; y < matrix.heigth; y++) {
@@ -43,7 +43,7 @@ public class Day03 extends Puzzle2023 {
         return schematic;
     }
 
-    private int parseCharacterAndReturnNewX(Matrix matrix, int x, int y, Schematic schematic) {
+    private int parseCharacterAndReturnNewX(Matrix<Character> matrix, int x, int y, Schematic schematic) {
         var character = matrix.xy(x, y);
 
         if (isSymbol(character)) {
@@ -57,7 +57,8 @@ public class Day03 extends Puzzle2023 {
         return x;
     }
 
-    private int parseNumberAndReturnItsEndX(Matrix matrix, int startX, int y, char startDigit, Schematic schematic) {
+    private int parseNumberAndReturnItsEndX(Matrix<Character> matrix, int startX, int y,
+                                            char startDigit, Schematic schematic) {
         var number = new StringBuilder(String.valueOf(startDigit));
         var rangeStart = startX;
         var rangeEnd = startX;
@@ -86,7 +87,7 @@ public class Day03 extends Puzzle2023 {
         return rangeEnd;
     }
 
-    private int sumAllAdjacentNumbersToASymbol(Schematic schematic, Matrix matrix) {
+    private int sumAllAdjacentNumbersToASymbol(Schematic schematic, Matrix<Character> matrix) {
         int sum = 0;
 
         for (int y = 0; y < matrix.heigth; y++) {
@@ -114,36 +115,37 @@ public class Day03 extends Puzzle2023 {
         return 0;
     }
 
-    private Map<Integer, Range<Integer>> getAdjacentRangesToNumber(Number number, int y, Matrix matrix) {
+    private Map<Integer, Range<Integer>> getAdjacentRangesToNumber(Number number, int y, Matrix<Character> matrix) {
         var adjacentRangeX = getAdjacentRangeX(number.range.fromInc(), number.range.toInc(), matrix);
         return expandRangeVerticallyAndLimitToMatrix(y, adjacentRangeX, matrix);
     }
 
-    private Map<Integer, Range<Integer>> getAdjacentRangesToSymbol(Symbol symbol, int y, Matrix matrix) {
+    private Map<Integer, Range<Integer>> getAdjacentRangesToSymbol(Symbol symbol, int y, Matrix<Character> matrix) {
         var adjacentRangeX = getAdjacentRangeX(symbol.point.x(), symbol.point.x(), matrix);
         return expandRangeVerticallyAndLimitToMatrix(y, adjacentRangeX, matrix);
     }
 
-    private Range<Integer> getAdjacentRangeX(int rangeStart, int rangeEnd, Matrix matrix) {
+    private Range<Integer> getAdjacentRangeX(int rangeStart, int rangeEnd, Matrix<Character> matrix) {
         return new Range<>(
                 boundedX(rangeStart - 1, matrix),
                 boundedX(rangeEnd + 1, matrix)
         );
     }
 
-    private Map<Integer, Range<Integer>> expandRangeVerticallyAndLimitToMatrix(int y, Range<Integer> rangeX, Matrix matrix) {
+    private Map<Integer, Range<Integer>> expandRangeVerticallyAndLimitToMatrix(int y, Range<Integer> rangeX,
+                                                                               Matrix<Character> matrix) {
         return Stream
                 .of(y - 1, y, y + 1)
                 .filter(n -> n >= 0 && n < matrix.heigth)
                 .collect(Collectors.toMap(n -> n, n -> rangeX));
     }
 
-    private long sumAllGearRatios(Matrix matrix) {
+    private long sumAllGearRatios(Matrix<Character> matrix) {
         var schematic = parseSchematicAndSaveData(matrix);
         return sumMultiplicationOfTwoNumbersNextToGearSymbol(schematic, matrix);
     }
 
-    private int sumMultiplicationOfTwoNumbersNextToGearSymbol(Schematic schematic, Matrix matrix) {
+    private int sumMultiplicationOfTwoNumbersNextToGearSymbol(Schematic schematic, Matrix<Character> matrix) {
         var sum = 0;
 
         for (int y = 0; y < matrix.heigth; y++) {
@@ -185,7 +187,7 @@ public class Day03 extends Puzzle2023 {
         return !isDigit(character) && character != '.';
     }
 
-    private int boundedX(int x, Matrix matrix) {
+    private int boundedX(int x, Matrix<Character> matrix) {
         return Math.min(Math.max(0, x), matrix.width - 1);
     }
 
