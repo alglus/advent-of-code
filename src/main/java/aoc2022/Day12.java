@@ -1,9 +1,6 @@
 package aoc2022;
 
-import util.Dijkstra;
-import util.Direction;
-import util.Position;
-import util.Range;
+import util.*;
 import util.graph.Edge;
 import util.graph.Graph;
 import util.graph.SimpleNode;
@@ -33,17 +30,17 @@ public class Day12 extends Puzzle2022 {
         for (int y = 0; y < matrixHeight; y++) {
             for (int x = 0; x < matrixWidth; x++) {
 
-                var currentPosition = new Position(x, y, new Range<>(0, matrixWidth - 1), new Range<>(0, matrixHeight - 1));
+                var currentPoint = new RangedPoint(Point.at(x, y), new Range<>(0, matrixWidth - 1), new Range<>(0, matrixHeight - 1));
                 var currentHeight = heightMatrix[y][x];
                 var currentNode = graph.addNodeOrGetExisting(new SimpleNode(concatenate(".", x, y), currentHeight));
                 currentHeight = correctHeightOfStartAndEndNodes(currentHeight);
 
                 for (Direction direction : Direction.values()) {
-                    var neighborPosition = currentPosition.add(direction.step());
+                    var neighborPosition = currentPoint.add(direction.step);
 
                     if (neighborPosition.isInRange()) {
-                        var neighborHeight = heightMatrix[neighborPosition.y()][neighborPosition.x()];
-                        var neighborId = concatenate(".", neighborPosition.x(), neighborPosition.y());
+                        var neighborHeight = heightMatrix[neighborPosition.point().y()][neighborPosition.point().x()];
+                        var neighborId = concatenate(".", neighborPosition.point().x(), neighborPosition.point().y());
                         var neighborNode = graph.addNodeOrGetExisting(new SimpleNode(neighborId, neighborHeight));
                         neighborHeight = correctHeightOfStartAndEndNodes(neighborHeight);
 
@@ -96,5 +93,15 @@ public class Day12 extends Puzzle2022 {
                 .map(Optional::get)
                 .sorted()
                 .findFirst().orElseThrow());
+    }
+
+    private record RangedPoint(Point point, Range<Integer> rangeX, Range<Integer> rangeY) {
+        public RangedPoint add(Step step) {
+            return new RangedPoint(point.add(step), rangeX, rangeY);
+        }
+
+        public boolean isInRange() {
+            return rangeX.contains(point.x()) && rangeY.contains(point.y());
+        }
     }
 }
