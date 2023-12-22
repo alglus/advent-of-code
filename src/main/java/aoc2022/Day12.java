@@ -1,7 +1,7 @@
 package aoc2022;
 
 import util.Dijkstra;
-import util.Directions;
+import util.Direction;
 import util.Position;
 import util.Range;
 import util.graph.Edge;
@@ -38,7 +38,7 @@ public class Day12 extends Puzzle2022 {
                 var currentNode = graph.addNodeOrGetExisting(new SimpleNode(concatenate(".", x, y), currentHeight));
                 currentHeight = correctHeightOfStartAndEndNodes(currentHeight);
 
-                for (Directions direction : Directions.values()) {
+                for (Direction direction : Direction.values()) {
                     var neighborPosition = currentPosition.add(direction.step());
 
                     if (neighborPosition.isInRange()) {

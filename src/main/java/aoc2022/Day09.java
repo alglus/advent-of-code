@@ -1,6 +1,6 @@
 package aoc2022;
 
-import util.Directions;
+import util.Direction;
 import util.Position;
 import util.Step;
 
@@ -25,7 +25,7 @@ public class Day09 extends Puzzle2022 {
         var instructionInput = input.split(" ");
 
         return new Instruction(
-                Directions.valueOf(instructionInput[0]),
+                Direction.valueOf(instructionInput[0]),
                 Integer.parseInt(instructionInput[1])
         );
     }
@@ -116,6 +116,6 @@ public class Day09 extends Puzzle2022 {
         return String.valueOf(visitedPositions.size());
     }
 
-    private record Instruction(Directions direction, int steps) {
+    private record Instruction(Direction direction, int steps) {
     }
 }
