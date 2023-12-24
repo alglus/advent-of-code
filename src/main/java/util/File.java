@@ -1,47 +1,27 @@
 package util;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
 public class File {
 
     private final String name;
-    private int size;
     private final Types type;
     private final File parent;
-
-    private int ownIndexAmongSiblings;
     private final List<File> children = new ArrayList<>();
+    private int size;
+    private int ownIndexAmongSiblings;
 
     public File(String name, int size, Types type, File parent) {
         this.name = name;
         this.size = size;
         this.type = type;
         this.parent = parent;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public File getParent() {
-        return parent;
-    }
-
-    public List<File> getChildren() {
-        return children;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public void setOwnIndexAmongSiblings(int index) {
-        this.ownIndexAmongSiblings = index;
     }
 
     public boolean isFile() {
