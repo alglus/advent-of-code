@@ -15,8 +15,12 @@ public class Matrix<T> {
         return new Matrix<>(matrix, matrix[0].length, matrix.length);
     }
 
-    public T xy(int x, int y) {
+    public T at(int x, int y) {
         return matrix[y][x];
+    }
+
+    public T at(Point point) {
+        return at(point.x(), point.y());
     }
 
     public boolean isAtRightBorder(int x) {

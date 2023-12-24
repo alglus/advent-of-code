@@ -44,7 +44,7 @@ public class Day03 extends Puzzle2023 {
     }
 
     private int parseCharacterAndReturnNewX(Matrix<Character> matrix, int x, int y, Schematic schematic) {
-        var character = matrix.xy(x, y);
+        var character = matrix.at(x, y);
 
         if (isSymbol(character)) {
             schematic.symbols.get(y).add(new Symbol(Point.at(x, y), character));
@@ -64,7 +64,7 @@ public class Day03 extends Puzzle2023 {
         var rangeEnd = startX;
 
         for (int x = startX + 1; x < matrix.width; x++) {
-            var character = matrix.xy(x, y);
+            var character = matrix.at(x, y);
 
             if (isDigit(character)) {
                 number.append(character);
