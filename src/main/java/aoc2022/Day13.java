@@ -194,6 +194,12 @@ public class Day13 extends Puzzle2022 {
         return String.valueOf(calculateDecoderKey(orderedPackets));
     }
 
+    @Override
+    // TODO: temprary disable printing the yet unsolved part 2
+    protected void printPart2() {
+        System.out.println();
+    }
+
     /**
      * Packets
      *
