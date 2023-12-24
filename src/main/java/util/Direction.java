@@ -1,16 +1,29 @@
 package util;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public enum Direction {
-    R(1, 0), L(-1, 0), U(0, -1), D(0, 1);
+    R(new Step(1, 0)), L(new Step(-1, 0)), U(new Step(0, -1)), D(new Step(0, 1));
 
-    private final Step step;
+    public final Step step;
 
-    Direction(int stepX, int stepY) {
-        this.step = new Step(stepX, stepY);
+    public static Direction getOpposite(Direction direction) {
+        return switch (direction) {
+            case R -> L;
+            case L -> R;
+            case U -> D;
+            case D -> U;
+        };
     }
 
-    public Step step() {
-        return step;
+    public Direction opposite() {
+        return Direction.getOpposite(this);
     }
+
+    public boolean isOpposite(Direction direction) {
+        return direction == opposite();
+    }
+
 }
 

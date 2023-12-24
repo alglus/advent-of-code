@@ -80,7 +80,7 @@ public class Day09 extends Puzzle2022 {
 
             for (int s = 0; s < instruction.steps; s++) {
 
-                head.move(instruction.direction().step());
+                head.move(instruction.direction().step);
                 adjustTail(tail, head);
 
                 visitedPositions.add(tail.toString());
@@ -101,7 +101,7 @@ public class Day09 extends Puzzle2022 {
             var instruction = getInstruction(inputLine);
 
             for (int s = 0; s < instruction.steps; s++) {
-                head.move(instruction.direction().step());
+                head.move(instruction.direction().step);
                 var newHead = head;
 
                 for (Position knot : rope) {
