@@ -1,8 +1,8 @@
 package util;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Util {
 
@@ -58,6 +58,24 @@ public class Util {
             list.add(initValue);
         }
         return list;
+    }
+
+    public static Set<Integer> setFromRange(int startInclusive, int endInclusive) {
+        return IntStream.rangeClosed(startInclusive, endInclusive).boxed().collect(Collectors.toSet());
+    }
+
+    public static Set<Integer> setFromUnorderedRangeEnds(int end1Inclusive, int end2Inclusive) {
+        if (end1Inclusive < end2Inclusive) {
+            return setFromRange(end1Inclusive, end2Inclusive);
+        } else {
+            return setFromRange(end2Inclusive, end1Inclusive);
+        }
+    }
+
+    public static <T> Set<T> intersection(Set<T> set1, Set<T> set2) {
+        var intersection = new HashSet<>(set1);
+        intersection.retainAll(set2);
+        return intersection;
     }
 
 }
