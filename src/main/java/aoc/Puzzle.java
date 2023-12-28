@@ -41,6 +41,10 @@ public abstract class Puzzle {
         return Input.getLinesFromFile(getInputPath());
     }
 
+    public List<List<String>> getInputLinesSplitByBlankLine() {
+        return Input.splitByBlankLines(getInputLines());
+    }
+
     public Character[][] getInputAsCharMatrix() {
         return Input.convertCharInputIntoMatrix(getInputLines());
     }

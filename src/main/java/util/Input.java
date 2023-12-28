@@ -68,4 +68,22 @@ public class Input {
         return matrix;
     }
 
+    public static List<List<String>> splitByBlankLines(List<String> input) {
+        List<List<String>> listOfStringLists = new ArrayList<>();
+        List<String> stringList = new ArrayList<>();
+
+        for (int i = 0; i < input.size(); i++) {
+            var string = input.get(i);
+
+            if (string.isBlank() || i == input.size() - 1) {
+                listOfStringLists.add(stringList);
+                stringList = new ArrayList<>();
+            } else {
+                stringList.add(string);
+            }
+        }
+
+        return listOfStringLists;
+    }
+
 }

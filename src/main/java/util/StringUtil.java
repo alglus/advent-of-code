@@ -1,6 +1,10 @@
 package util;
 
+import lombok.NonNull;
+
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class StringUtil {
@@ -40,6 +44,22 @@ public class StringUtil {
 
     public static String[] splitByWhitespaces(String string) {
         return string.split("\\s+");
+    }
+
+    public static List<Integer> findDiffIndexes(@NonNull String s1, @NonNull String s2) {
+        if (s1.length() != s2.length()) {
+            throw new IllegalArgumentException("The strings must have equal length.");
+        }
+
+        List<Integer> diffIndexes = new ArrayList<>();
+
+        for (int i = 0; i < s1.length(); i++) {
+            if (s1.charAt(i) != s2.charAt(i)) {
+                diffIndexes.add(i);
+            }
+        }
+
+        return diffIndexes;
     }
 
 }
