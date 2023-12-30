@@ -37,6 +37,10 @@ public abstract class Puzzle {
         return Input.getFirstLineFromFile(getInputPath());
     }
 
+    public List<String> getCsvFromInputLine() {
+        return Input.getCsv(getInputLine());
+    }
+
     public List<String> getInputLines() {
         return Input.getLinesFromFile(getInputPath());
     }
