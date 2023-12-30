@@ -1,5 +1,8 @@
 package util;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 public class Matrix<T> {
     public final T[][] matrix;
     public final int width;
@@ -23,7 +26,20 @@ public class Matrix<T> {
         return at(point.x(), point.y());
     }
 
+    public void set(int x, int y, T value) {
+        matrix[y][x] = value;
+    }
+
     public boolean isAtRightBorder(int x) {
         return x == width - 1;
+    }
+
+    @Override
+    public String toString() {
+        return Arrays.stream(matrix)
+                .map(array -> Arrays.stream(array)
+                        .map(String::valueOf)
+                        .collect(Collectors.joining()))
+                .collect(Collectors.joining("\n"));
     }
 }
