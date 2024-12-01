@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
-public class Day02Tests {
+public class Day02Test {
 
     private final int SCORE_WIN = 6;
     private final int SCORE_DRAW = 3;

@@ -10,7 +10,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.spy;
 
-public class Day01Tests {
+public class Day01Test {
 
     @Test
     public void calories_in_empty_list_are_zero() {

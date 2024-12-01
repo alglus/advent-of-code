@@ -1,18 +1,18 @@
-package aoc2023;
+package aoc2022;
 
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class Day09Tests {
+public class Day05Test {
 
     @Test
     public void aoc_example_part1() {
-        assertEquals("114", new Day09().asTest().solvePart1());
+        assertEquals("CMZ", new Day05().asTest().solvePart1());
     }
 
     @Test
     public void aoc_example_part2() {
-        assertEquals("2", new Day09().asTest().solvePart2());
+        assertEquals("MCD", new Day05().asTest().solvePart2());
     }
 }

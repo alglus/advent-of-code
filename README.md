@@ -1,7 +1,8 @@
 # Advent of Code
 
-This repository contains my solutions for the [Advent of Code](https://adventofcode.com/) programming puzzles. The Advent of Code is an annual event that takes place every December, where a new programming puzzle is released each day leading up to Christmas.
-
+This repository contains my solutions for the [Advent of Code](https://adventofcode.com/) programming puzzles. The
+Advent of Code is an annual event that takes place every December, where a new programming puzzle is released each day
+leading up to Christmas.
 
 ## Prerequisites
 
@@ -9,7 +10,6 @@ To run the code in this repository, you'll need to have the following installed 
 
 - Java JDK (version 17 or later)
 - Maven (version 3.6 or later)
-
 
 ## Setup
 
@@ -31,7 +31,6 @@ cd advent-of-code
 mvn clean install
 ```
 
-
 ## Usage
 
 To run the code for a specific day, use the following command:
@@ -51,7 +50,6 @@ mvn exec:java -Dexec.mainClass=aoc2022.Day01
 
 The output of the program will be printed to the console.
 
-
 ## Testing
 
 To run all tests, use the following command:
@@ -69,10 +67,10 @@ mvn -Dtest=aoc<year>.Day<day>Tests test
 So, for example, to run the tests of Day 2 of the 2022 event, run the following:
 
 ```bash
-mvn -Dtest=aoc2022.Day02Tests test
+mvn -Dtest=aoc2022.Day02Test test
 ```
-
 
 ## License
 
-This project is licensed under the GPL-3.0 License - see the [LICENSE](https://github.com/alglus/advent-of-code/blob/main/LICENSE) file for details.
+This project is licensed under the GPL-3.0 License - see
+the [LICENSE](https://github.com/alglus/advent-of-code/blob/main/LICENSE) file for details.

@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class Day15Tests {
+public class Day15Test {
 
     @Test
     public void aoc_example_part1() {

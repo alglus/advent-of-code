@@ -4,15 +4,15 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class Day05Tests {
+public class Day02Test {
 
     @Test
     public void aoc_example_part1() {
-        assertEquals("35", new Day05().asTest().solvePart1());
+        assertEquals("8", new Day02().asTest().solvePart1());
     }
 
     @Test
     public void aoc_example_part2() {
-        assertEquals("46", new Day05().asTest().solvePart2());
+        assertEquals("2286", new Day02().asTest().solvePart2());
     }
 }

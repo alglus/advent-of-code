@@ -8,7 +8,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.spy;
 
-public class Day03Tests {
+public class Day03Test {
 
     @Test
     public void micro_test_part1() {

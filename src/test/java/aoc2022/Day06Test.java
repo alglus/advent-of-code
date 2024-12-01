@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
-public class Day06Tests {
+public class Day06Test {
 
     private static Stream<Arguments> getTestDatastreamsPart1() {
         var input = Input.getLinesFromFile("src/test/resources/aoc2022/input/day_06.txt");
