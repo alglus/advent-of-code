@@ -30,8 +30,8 @@ public class Day01 extends Puzzle2024 {
     }
 
     private long calculateTotalDistanceBetweenLists(final List<String> input) {
-        final SortedList<Integer> leftList = new SortedList<>();
-        final SortedList<Integer> rightList = new SortedList<>();
+        final List<Integer> leftList = new SortedList<>();
+        final List<Integer> rightList = new SortedList<>();
 
         input.stream()
                 .map(StringUtil::splitByWhitespaces)
