@@ -9,16 +9,16 @@ import java.util.stream.IntStream;
 
 public class Util {
 
-    public static boolean divisible(long numerator, long denominator) {
+    public static boolean divisible(final long numerator, final long denominator) {
         return numerator % denominator == 0;
     }
 
-    public static List<String> splitByCommaIgnoringSquareBrackets(String string) {
+    public static List<String> splitByCommaIgnoringSquareBrackets(final String string) {
         var substring = new StringBuilder();
-        List<String> list = new ArrayList<>();
+        final List<String> list = new ArrayList<>();
         int level = 0;
 
-        for (char c : string.toCharArray()) {
+        for (final char c : string.toCharArray()) {
             if (c == ',') {
                 if (level == 0) {
                     list.add(substring.toString());
@@ -34,40 +34,41 @@ public class Util {
         }
         list.add(substring.toString());
 
-        if (level != 0) throw new IllegalArgumentException("The passed list is unbalanced!");
+        if (level != 0) {
+            throw new IllegalArgumentException("The passed list is unbalanced!");
+        }
 
         return list;
     }
 
-    public static int toInt(String string, int defaultValue) {
+    public static int toInt(final String string, final int defaultValue) {
         try {
             return Integer.parseInt(string);
-        } catch (NumberFormatException e) {
+        } catch (final NumberFormatException e) {
             return defaultValue;
         }
     }
 
-    public static boolean areAllTrue(Collection<Boolean> values) {
-        for (boolean value : values) {
-            if (value == false)
-                return false;
+    public static boolean areAllTrue(final Collection<Boolean> values) {
+        for (final boolean value : values) {
+            if (value == false) return false;
         }
         return true;
     }
 
-    public static <T> List<T> initializeAndPopulateList(int listSize, T initValue) {
-        List<T> list = new ArrayList<>(listSize);
+    public static <T> List<T> initializeAndPopulateList(final int listSize, final T initValue) {
+        final List<T> list = new ArrayList<>(listSize);
         for (int i = 0; i < listSize; i++) {
             list.add(initValue);
         }
         return list;
     }
 
-    public static Set<Integer> setFromRange(int startInclusive, int endInclusive) {
+    public static Set<Integer> setFromRange(final int startInclusive, final int endInclusive) {
         return IntStream.rangeClosed(startInclusive, endInclusive).boxed().collect(Collectors.toSet());
     }
 
-    public static Set<Integer> setFromUnorderedRangeEnds(int end1Inclusive, int end2Inclusive) {
+    public static Set<Integer> setFromUnorderedRangeEnds(final int end1Inclusive, final int end2Inclusive) {
         if (end1Inclusive < end2Inclusive) {
             return setFromRange(end1Inclusive, end2Inclusive);
         } else {
@@ -75,8 +76,8 @@ public class Util {
         }
     }
 
-    public static <T> Set<T> intersection(Set<T> set1, Set<T> set2) {
-        var intersection = new HashSet<>(set1);
+    public static <T> Set<T> intersection(final Set<T> set1, final Set<T> set2) {
+        final var intersection = new HashSet<>(set1);
         intersection.retainAll(set2);
         return intersection;
     }
