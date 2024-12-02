@@ -1,5 +1,8 @@
 package util;
 
+import lombok.NonNull;
+
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -78,4 +81,23 @@ public class Util {
         return intersection;
     }
 
+    @SuppressWarnings("unchecked")
+    public static <T> T[] copyOfExcluding(@NonNull final T[] array, final int excludedIndex,
+                                          @NonNull final Class<T> clazz) {
+        if (array.length == 0) {
+            return Arrays.copyOf(array, 0);
+        }
+
+        if (excludedIndex >= array.length) {
+            throw new IllegalArgumentException(String.format(
+                    "The excluded index '%d' is out of bounds: [0,%d]", excludedIndex, array.length));
+        }
+
+        final T[] newArray = (T[]) Array.newInstance(clazz, Math.max(array.length - 1, 0));
+
+        System.arraycopy(array, 0, newArray, 0, excludedIndex);
+        System.arraycopy(array, excludedIndex + 1, newArray, excludedIndex, array.length - excludedIndex - 1);
+
+        return newArray;
+    }
 }
