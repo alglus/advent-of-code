@@ -14,4 +14,8 @@ public class MathUtil {
     public static long lcm(final long a, final long b) {
         return Math.abs(a * b) / gcd(a, b);
     }
+
+    public static boolean isSignDifferent(final Integer a, final Integer b) {
+        return a * b < 0;
+    }
 }
