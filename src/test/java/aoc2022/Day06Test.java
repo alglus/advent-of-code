@@ -41,7 +41,7 @@ public class Day06Test {
     @MethodSource("getTestDatastreamsPart1")
     public void aoc_example_part1(String input, String expectedPosition) {
         var day06 = spy(Day06.class);
-        when(day06.getInputLine()).thenReturn(input);
+        when(day06.getFirstInputLine()).thenReturn(input);
 
         assertEquals(expectedPosition, day06.solvePart1());
     }
@@ -50,7 +50,7 @@ public class Day06Test {
     @MethodSource("getTestDatastreamsPart2")
     public void aoc_example_part2(String input, String expectedPosition) {
         var day06 = spy(Day06.class);
-        when(day06.getInputLine()).thenReturn(input);
+        when(day06.getFirstInputLine()).thenReturn(input);
 
         assertEquals(expectedPosition, day06.solvePart2());
     }

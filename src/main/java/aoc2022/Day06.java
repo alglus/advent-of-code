@@ -9,15 +9,15 @@ public class Day06 extends Puzzle2022 {
         super(6);
     }
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         new Day06().printSolutions();
     }
 
     @Override
     public String solvePart1() {
-        StartOfPacketDetectingList<Character> datastream = new StartOfPacketDetectingList<>();
+        final StartOfPacketDetectingList<Character> datastream = new StartOfPacketDetectingList<>();
 
-        for (Character c : getInputLine().toCharArray()) {
+        for (final Character c : getFirstInputLine().toCharArray()) {
             datastream.add(c);
 
             if (datastream.lastElementsAllDifferent(4)) {
@@ -30,9 +30,9 @@ public class Day06 extends Puzzle2022 {
 
     @Override
     public String solvePart2() {
-        StartOfPacketDetectingList<Character> datastream = new StartOfPacketDetectingList<>();
+        final StartOfPacketDetectingList<Character> datastream = new StartOfPacketDetectingList<>();
 
-        for (Character c : getInputLine().toCharArray()) {
+        for (final Character c : getFirstInputLine().toCharArray()) {
             datastream.add(c);
 
             if (datastream.lastElementsAllDifferent(14)) {
@@ -45,12 +45,13 @@ public class Day06 extends Puzzle2022 {
 
     private static class StartOfPacketDetectingList<E> extends ArrayList<E> {
 
-        boolean lastElementsAllDifferent(int numberOfLastElements) {
+        boolean lastElementsAllDifferent(final int numberOfLastElements) {
 
-            if (this.size() < numberOfLastElements)
+            if (this.size() < numberOfLastElements) {
                 return false;
+            }
 
-            Set<E> setOfLastElements = Set.copyOf(
+            final Set<E> setOfLastElements = Set.copyOf(
                     this.subList(this.size() - numberOfLastElements, this.size())
             );
 

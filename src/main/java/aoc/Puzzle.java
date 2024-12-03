@@ -14,7 +14,7 @@ public abstract class Puzzle {
     private String inputFileSuffix = "";
     private String inputPath = null;
 
-    public Puzzle(int year, int day) {
+    public Puzzle(final int year, final int day) {
         this.year = year;
         this.day = day;
     }
@@ -24,7 +24,7 @@ public abstract class Puzzle {
         return this;
     }
 
-    public Puzzle withInputFileSuffix(String inputFileSuffix) {
+    public Puzzle withInputFileSuffix(final String inputFileSuffix) {
         this.inputFileSuffix = inputFileSuffix;
         return this;
     }
@@ -33,12 +33,16 @@ public abstract class Puzzle {
 
     public abstract String solvePart2();
 
-    public String getInputLine() {
+    public String getFirstInputLine() {
         return Input.getFirstLineFromFile(getInputPath());
     }
 
-    public List<String> getCsvFromInputLine() {
-        return Input.getCsv(getInputLine());
+    public String getInputAsString() {
+        return Input.getInputAsString(getInputPath());
+    }
+
+    public List<String> getCsvFromFirstInputLine() {
+        return Input.getCsv(getFirstInputLine());
     }
 
     public List<String> getInputLines() {
