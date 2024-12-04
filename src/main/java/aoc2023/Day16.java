@@ -19,7 +19,7 @@ public class Day16 extends Puzzle2023 {
     }
 
     private long getEnergizedTilesCount(final Matrix<Character> matrix, final BeamEntry startingBeamEntry) {
-        final var energyMap = Matrix.create(Direction.class, matrix.width, matrix.heigth, null);
+        final var energyMap = Matrix.create(Direction.class, matrix.width, matrix.height, null);
         final var beamEntries = new ArrayDeque<BeamEntry>();
 
         beamEntries.add(startingBeamEntry);
@@ -61,12 +61,12 @@ public class Day16 extends Puzzle2023 {
 
         for (int x = 0; x < matrix.width; x++) {
             final var countStartingOnTopRow = getEnergizedTilesCount(matrix, new BeamEntry(Point.at(x, -1), Direction.D));
-            final var countStartingOnBottomRow = getEnergizedTilesCount(matrix, new BeamEntry(Point.at(x, matrix.heigth), Direction.U));
+            final var countStartingOnBottomRow = getEnergizedTilesCount(matrix, new BeamEntry(Point.at(x, matrix.height), Direction.U));
             maxCount = Math.max(maxCount, countStartingOnTopRow);
             maxCount = Math.max(maxCount, countStartingOnBottomRow);
         }
 
-        for (int y = 0; y < matrix.heigth; y++) {
+        for (int y = 0; y < matrix.height; y++) {
             final var countStartingOnLeftColumn = getEnergizedTilesCount(matrix, new BeamEntry(Point.at(-1, y), Direction.R));
             final var countStartingOnRightColumn = getEnergizedTilesCount(matrix, new BeamEntry(Point.at(matrix.width, y), Direction.L));
             maxCount = Math.max(maxCount, countStartingOnLeftColumn);

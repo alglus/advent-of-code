@@ -30,10 +30,10 @@ public class Day10 extends Puzzle2023 {
     }
 
     private Maze convertInputMatrixToMaze(final Matrix<Character> matrix) {
-        final var tiles = new Tile[matrix.heigth][matrix.width];
+        final var tiles = new Tile[matrix.height][matrix.width];
         Tile start = null;
 
-        for (int y = 0; y < matrix.heigth; y++) {
+        for (int y = 0; y < matrix.height; y++) {
             for (int x = 0; x < matrix.width; x++) {
 
                 final var tile = Tile.of(Point.at(x, y), matrix.at(x, y));

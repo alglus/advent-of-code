@@ -9,42 +9,41 @@ import java.util.stream.Stream;
 public class Matrix<T> {
     public final T[][] matrix;
     public final int width;
-    public final int heigth;
+    public final int height;
 
-    private Matrix(T[][] matrix, int width, int heigth) {
+    private Matrix(final T[][] matrix, final int width, final int height) {
         this.matrix = matrix;
         this.width = width;
-        this.heigth = heigth;
+        this.height = height;
     }
 
-    public static <T> Matrix<T> of(T[][] matrix) {
+    public static <T> Matrix<T> of(final T[][] matrix) {
         return new Matrix<>(matrix, matrix[0].length, matrix.length);
     }
 
-    public static <T> Matrix<T> create(Class<T> clazz, int width, int heigth, T initValue) {
-        @SuppressWarnings("unchecked")
-        var matrix = (T[][]) Array.newInstance(clazz, heigth, width);
+    public static <T> Matrix<T> create(final Class<T> clazz, final int width, final int height, final T initValue) {
+        @SuppressWarnings("unchecked") final var matrix = (T[][]) Array.newInstance(clazz, height, width);
         Arrays.stream(matrix).forEach(ts -> Arrays.fill(ts, initValue));
-        return new Matrix<>(matrix, width, heigth);
+        return new Matrix<>(matrix, width, height);
     }
 
-    public T at(int x, int y) {
+    public T at(final int x, final int y) {
         return matrix[y][x];
     }
 
-    public T at(Point point) {
+    public T at(final Point point) {
         return at(point.x(), point.y());
     }
 
-    public void set(int x, int y, T value) {
+    public void set(final int x, final int y, final T value) {
         matrix[y][x] = value;
     }
 
-    public void set(Point point, T value) {
+    public void set(final Point point, final T value) {
         set(point.x(), point.y(), value);
     }
 
-    public boolean isAtRightBorder(int x) {
+    public boolean isAtRightBorder(final int x) {
         return x == width - 1;
     }
 
@@ -61,7 +60,7 @@ public class Matrix<T> {
                 .collect(Collectors.joining("\n"));
     }
 
-    public String toString(Function<T, String> mapValueToString) {
+    public String toString(final Function<T, String> mapValueToString) {
         return Arrays.stream(matrix)
                 .map(array -> Arrays.stream(array)
                         .map(mapValueToString)
