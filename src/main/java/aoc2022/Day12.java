@@ -16,7 +16,7 @@ public class Day12 extends Puzzle2022 {
         super(12);
     }
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         new Day12().printSolutions();
     }
 
@@ -30,18 +30,18 @@ public class Day12 extends Puzzle2022 {
         for (int y = 0; y < matrixHeight; y++) {
             for (int x = 0; x < matrixWidth; x++) {
 
-                var currentPoint = new RangedPoint(Point.at(x, y), new Range<>(0, matrixWidth - 1), new Range<>(0, matrixHeight - 1));
+                final var currentPoint = new RangedPoint(Point.at(x, y), new Range<>(0, matrixWidth - 1), new Range<>(0, matrixHeight - 1));
                 var currentHeight = heightMatrix[y][x];
-                var currentNode = graph.addNodeOrGetExisting(new SimpleNode(concatenate(".", x, y), currentHeight));
+                final var currentNode = graph.addNodeOrGetExisting(new SimpleNode(concatenate(".", x, y), currentHeight));
                 currentHeight = correctHeightOfStartAndEndNodes(currentHeight);
 
-                for (Direction direction : Direction.values()) {
-                    var neighborPosition = currentPoint.add(direction.step);
+                for (final Direction direction : Direction.cardinal()) {
+                    final var neighborPosition = currentPoint.add(direction.step);
 
                     if (neighborPosition.isInRange()) {
                         var neighborHeight = heightMatrix[neighborPosition.point().y()][neighborPosition.point().x()];
-                        var neighborId = concatenate(".", neighborPosition.point().x(), neighborPosition.point().y());
-                        var neighborNode = graph.addNodeOrGetExisting(new SimpleNode(neighborId, neighborHeight));
+                        final var neighborId = concatenate(".", neighborPosition.point().x(), neighborPosition.point().y());
+                        final var neighborNode = graph.addNodeOrGetExisting(new SimpleNode(neighborId, neighborHeight));
                         neighborHeight = correctHeightOfStartAndEndNodes(neighborHeight);
 
                         if (isPossibleToStepOntoNeighborPosition(currentHeight, neighborHeight)) {
@@ -55,7 +55,7 @@ public class Day12 extends Puzzle2022 {
         return graph;
     }
 
-    private char correctHeightOfStartAndEndNodes(char height) {
+    private char correctHeightOfStartAndEndNodes(final char height) {
         return switch (height) {
             case 'S' -> 'a';
             case 'E' -> 'z';
@@ -63,16 +63,16 @@ public class Day12 extends Puzzle2022 {
         };
     }
 
-    private boolean isPossibleToStepOntoNeighborPosition(char currentHeight, char neighborHeight) {
+    private boolean isPossibleToStepOntoNeighborPosition(final char currentHeight, final char neighborHeight) {
         return neighborHeight - currentHeight <= 1;
     }
 
     @Override
     public String solvePart1() {
-        var heightMatrix = convertCharInputIntoMatrix(getInputLines());
-        var graph = buildGraphFromMatrix(heightMatrix);
+        final var heightMatrix = convertCharInputIntoMatrix(getInputLines());
+        final var graph = buildGraphFromMatrix(heightMatrix);
 
-        var startNode = graph.getNodes().stream()
+        final var startNode = graph.getNodes().stream()
                 .filter(node -> node.getName().equals("S"))
                 .findFirst().orElseThrow();
 
@@ -83,8 +83,8 @@ public class Day12 extends Puzzle2022 {
 
     @Override
     public String solvePart2() {
-        var heightMatrix = convertCharInputIntoMatrix(getInputLines());
-        var graph = buildGraphFromMatrix(heightMatrix);
+        final var heightMatrix = convertCharInputIntoMatrix(getInputLines());
+        final var graph = buildGraphFromMatrix(heightMatrix);
 
         return String.valueOf(graph.getNodes().stream()
                 .filter(node -> node.getName().equals("a") || node.getName().equals("S"))
@@ -96,7 +96,7 @@ public class Day12 extends Puzzle2022 {
     }
 
     private record RangedPoint(Point point, Range<Integer> rangeX, Range<Integer> rangeY) {
-        public RangedPoint add(Step step) {
+        public RangedPoint add(final Step step) {
             return new RangedPoint(point.add(step), rangeX, rangeY);
         }
 

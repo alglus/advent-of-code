@@ -14,18 +14,18 @@ public class Day16 extends Puzzle2023 {
         super(16);
     }
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         new Day16().printSolutions();
     }
 
-    private long getEnergizedTilesCount(Matrix<Character> matrix, BeamEntry startingBeamEntry) {
-        var energyMap = Matrix.create(Direction.class, matrix.width, matrix.heigth, null);
-        var beamEntries = new ArrayDeque<BeamEntry>();
+    private long getEnergizedTilesCount(final Matrix<Character> matrix, final BeamEntry startingBeamEntry) {
+        final var energyMap = Matrix.create(Direction.class, matrix.width, matrix.heigth, null);
+        final var beamEntries = new ArrayDeque<BeamEntry>();
 
         beamEntries.add(startingBeamEntry);
 
         while (!beamEntries.isEmpty()) {
-            var beamEntry = beamEntries.poll();
+            final var beamEntry = beamEntries.poll();
             var point = beamEntry.point;
             var direction = beamEntry.direction;
 
@@ -37,7 +37,7 @@ public class Day16 extends Puzzle2023 {
                 }
 
                 energyMap.set(point, direction);
-                var tile = matrix.at(point);
+                final var tile = matrix.at(point);
 
                 if (tile == '/' || tile == '\\') {
                     direction = setNewDirection(tile, direction);
@@ -56,19 +56,19 @@ public class Day16 extends Puzzle2023 {
                 .count();
     }
 
-    private long getMaximumEnergizedTilesCount(Matrix<Character> matrix) {
+    private long getMaximumEnergizedTilesCount(final Matrix<Character> matrix) {
         var maxCount = 0L;
 
         for (int x = 0; x < matrix.width; x++) {
-            var countStartingOnTopRow = getEnergizedTilesCount(matrix, new BeamEntry(Point.at(x, -1), Direction.D));
-            var countStartingOnBottomRow = getEnergizedTilesCount(matrix, new BeamEntry(Point.at(x, matrix.heigth), Direction.U));
+            final var countStartingOnTopRow = getEnergizedTilesCount(matrix, new BeamEntry(Point.at(x, -1), Direction.D));
+            final var countStartingOnBottomRow = getEnergizedTilesCount(matrix, new BeamEntry(Point.at(x, matrix.heigth), Direction.U));
             maxCount = Math.max(maxCount, countStartingOnTopRow);
             maxCount = Math.max(maxCount, countStartingOnBottomRow);
         }
 
         for (int y = 0; y < matrix.heigth; y++) {
-            var countStartingOnLeftColumn = getEnergizedTilesCount(matrix, new BeamEntry(Point.at(-1, y), Direction.R));
-            var countStartingOnRightColumn = getEnergizedTilesCount(matrix, new BeamEntry(Point.at(matrix.width, y), Direction.L));
+            final var countStartingOnLeftColumn = getEnergizedTilesCount(matrix, new BeamEntry(Point.at(-1, y), Direction.R));
+            final var countStartingOnRightColumn = getEnergizedTilesCount(matrix, new BeamEntry(Point.at(matrix.width, y), Direction.L));
             maxCount = Math.max(maxCount, countStartingOnLeftColumn);
             maxCount = Math.max(maxCount, countStartingOnRightColumn);
         }
@@ -76,16 +76,17 @@ public class Day16 extends Puzzle2023 {
         return maxCount;
     }
 
-    private Direction setNewDirection(Character tile, Direction direction) {
+    private Direction setNewDirection(final Character tile, final Direction direction) {
         return switch (direction) {
             case R -> tile == '/' ? Direction.U : Direction.D;
             case L -> tile == '/' ? Direction.D : Direction.U;
             case U -> tile == '/' ? Direction.R : Direction.L;
             case D -> tile == '/' ? Direction.L : Direction.R;
+            default -> throw new IllegalStateException("Unexpected direction: " + direction);
         };
     }
 
-    private boolean isBeamSplit(Point point, Character tile, Direction direction, ArrayDeque<BeamEntry> beamEntries) {
+    private boolean isBeamSplit(final Point point, final Character tile, final Direction direction, final ArrayDeque<BeamEntry> beamEntries) {
         return switch (direction) {
             case L, R -> {
                 if (tile == '-') yield false;
@@ -97,6 +98,7 @@ public class Day16 extends Puzzle2023 {
                 beamEntries.addAll(Set.of(new BeamEntry(point, Direction.L), new BeamEntry(point, Direction.R)));
                 yield true;
             }
+            default -> throw new IllegalStateException("Unexpected direction: " + direction);
         };
     }
 
@@ -115,5 +117,4 @@ public class Day16 extends Puzzle2023 {
 
     private record BeamEntry(Point point, Direction direction) {
     }
-    
 }

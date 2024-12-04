@@ -19,24 +19,24 @@ public class Day10 extends Puzzle2023 {
         super(10);
     }
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         new Day10().printSolutions();
     }
 
-    private int getStepsToFarthestPointFromStart(Matrix<Character> matrix) {
-        var maze = convertInputMatrixToMaze(matrix);
-        var loopPath = findPathBackToStart(maze);
+    private int getStepsToFarthestPointFromStart(final Matrix<Character> matrix) {
+        final var maze = convertInputMatrixToMaze(matrix);
+        final var loopPath = findPathBackToStart(maze);
         return loopPath.size() / 2;
     }
 
-    private Maze convertInputMatrixToMaze(Matrix<Character> matrix) {
-        var tiles = new Tile[matrix.heigth][matrix.width];
+    private Maze convertInputMatrixToMaze(final Matrix<Character> matrix) {
+        final var tiles = new Tile[matrix.heigth][matrix.width];
         Tile start = null;
 
         for (int y = 0; y < matrix.heigth; y++) {
             for (int x = 0; x < matrix.width; x++) {
 
-                var tile = Tile.of(Point.at(x, y), matrix.at(x, y));
+                final var tile = Tile.of(Point.at(x, y), matrix.at(x, y));
                 tiles[y][x] = tile;
 
                 if (tile.type == TileType.START) {
@@ -48,14 +48,14 @@ public class Day10 extends Puzzle2023 {
         return new Maze(Matrix.of(tiles), Objects.requireNonNull(start));
     }
 
-    private List<Tile> findPathBackToStart(Maze maze) {
+    private List<Tile> findPathBackToStart(final Maze maze) {
         var pipeExit = findDirectionLeavingTheStart(maze);
         var nextTile = maze.getAdjacentTile(maze.start, pipeExit);
 
-        List<Tile> loop = new ArrayList<>(List.of(nextTile));
+        final List<Tile> loop = new ArrayList<>(List.of(nextTile));
 
         while (!nextTile.equals(maze.start)) {
-            var pipeEntry = pipeExit.opposite();
+            final var pipeEntry = pipeExit.opposite();
             pipeExit = nextTile.getPipeExit(pipeEntry);
             nextTile = maze.getAdjacentTile(nextTile, pipeExit);
             loop.add(nextTile);
@@ -64,12 +64,12 @@ public class Day10 extends Puzzle2023 {
         return loop;
     }
 
-    private Direction findDirectionLeavingTheStart(Maze maze) {
-        for (Direction startExitDirection : Direction.values()) {
-            var neighbourTilePosition = maze.start.point.add(startExitDirection.step);
-            var neighbourTile = maze.tiles.at(neighbourTilePosition);
+    private Direction findDirectionLeavingTheStart(final Maze maze) {
+        for (final Direction startExitDirection : Direction.cardinal()) {
+            final var neighbourTilePosition = maze.start.point.add(startExitDirection.step);
+            final var neighbourTile = maze.tiles.at(neighbourTilePosition);
 
-            for (Direction neighbourEntryDirection : neighbourTile.type.pipeExits) {
+            for (final Direction neighbourEntryDirection : neighbourTile.type.pipeExits) {
                 if (neighbourEntryDirection.isOpposite(startExitDirection)) {
                     return startExitDirection;
                 }
@@ -95,7 +95,7 @@ public class Day10 extends Puzzle2023 {
 
         public final Set<Direction> pipeExits;
 
-        public static TileType of(char tile) {
+        public static TileType of(final char tile) {
             return switch (tile) {
                 case 'S' -> START;
                 case '.' -> GROUND;
@@ -114,11 +114,11 @@ public class Day10 extends Puzzle2023 {
             Point point,
             TileType type
     ) {
-        public static Tile of(Point position, char tile) {
+        public static Tile of(final Point position, final char tile) {
             return new Tile(position, TileType.of(tile));
         }
 
-        public Direction getPipeExit(Direction pipeEntry) {
+        public Direction getPipeExit(final Direction pipeEntry) {
             return this.type.pipeExits.stream()
                     .filter(d -> d != pipeEntry)
                     .findFirst()
@@ -130,7 +130,7 @@ public class Day10 extends Puzzle2023 {
             Matrix<Tile> tiles,
             Tile start
     ) {
-        public Tile getAdjacentTile(Tile startingTile, Direction direction) {
+        public Tile getAdjacentTile(final Tile startingTile, final Direction direction) {
             return tiles.at(startingTile.point.add(direction.step));
         }
     }
