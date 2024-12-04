@@ -51,6 +51,29 @@ public class Matrix<T> {
         return Arrays.stream(matrix).flatMap(Arrays::stream);
     }
 
+    public boolean hasPatternAt(final int startX, final int startY, final Matrix<T> pattern) {
+        for (int y = 0; y < pattern.height; y++) {
+            for (int x = 0; x < pattern.width; x++) {
+                final Point matrixPoint = new Point(startX + x, startY + y);
+                if (matrixPoint.isOutsideOf(this)) {
+                    return false;
+                }
+
+                final T valueInMatrix = this.at(matrixPoint);
+                final T valueInPattern = pattern.at(x, y);
+
+                if (valueInPattern != null && !valueInMatrix.equals(valueInPattern)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean hasPatternAt(final Point point, final Matrix<T> pattern) {
+        return hasPatternAt(point.x(), point.y(), pattern);
+    }
+
     @Override
     public String toString() {
         return Arrays.stream(matrix)
