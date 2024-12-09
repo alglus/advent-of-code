@@ -84,9 +84,12 @@ public class Input {
         for (int i = 0; i < input.size(); i++) {
             final var string = input.get(i);
 
-            if (string.isBlank() || i == input.size() - 1) {
+            if (string.isBlank()) {
                 listOfStringLists.add(stringList);
                 stringList = new ArrayList<>();
+            } else if (i == input.size() - 1) {
+                stringList.add(string);
+                listOfStringLists.add(stringList);
             } else {
                 stringList.add(string);
             }
