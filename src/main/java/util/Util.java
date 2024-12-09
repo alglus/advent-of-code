@@ -10,10 +10,6 @@ import java.util.List;
 
 public class Util {
 
-    public static boolean divisible(final long numerator, final long denominator) {
-        return numerator % denominator == 0;
-    }
-
     public static List<String> splitByCommaIgnoringSquareBrackets(final String string) {
         var substring = new StringBuilder();
         final List<String> list = new ArrayList<>();

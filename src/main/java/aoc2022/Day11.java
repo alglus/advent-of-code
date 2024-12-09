@@ -7,8 +7,8 @@ import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
+import static util.MathUtil.isDivisible;
 import static util.StringUtil.getLastCharacter;
-import static util.Util.divisible;
 
 public class Day11 extends Puzzle2022 {
 
@@ -205,7 +205,7 @@ public class Day11 extends Puzzle2022 {
                 long newWorryLevel = operation.apply(item);
                 long worryLevelAfterRelief = reliefFunction.apply(newWorryLevel, moduliProduct);
 
-                int monkeyToThrowTo = monkeyToThrowToRule.get(divisible(worryLevelAfterRelief, divisibleBy));
+                final int monkeyToThrowTo = monkeyToThrowToRule.get(isDivisible(worryLevelAfterRelief, divisibleBy));
 
                 monkeys.get(monkeyToThrowTo).addItem(worryLevelAfterRelief);
 

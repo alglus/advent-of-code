@@ -18,4 +18,8 @@ public class MathUtil {
     public static boolean isSignDifferent(final Integer a, final Integer b) {
         return a * b < 0;
     }
+
+    public static boolean isDivisible(final long numerator, final long denominator) {
+        return numerator % denominator == 0;
+    }
 }
