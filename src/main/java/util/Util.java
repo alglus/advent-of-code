@@ -3,9 +3,10 @@ package util;
 import lombok.NonNull;
 
 import java.lang.reflect.Array;
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 public class Util {
 
@@ -58,8 +59,8 @@ public class Util {
 
 
     @SuppressWarnings("unchecked")
-    public static <T> T[] copyOfExcluding(@NonNull final T[] array, final int excludedIndex,
-                                          @NonNull final Class<T> clazz) {
+    public static <T> T[] copyOfArrayExcluding(@NonNull final T[] array, final int excludedIndex,
+                                               @NonNull final Class<T> clazz) {
         if (array.length == 0) {
             return Arrays.copyOf(array, 0);
         }

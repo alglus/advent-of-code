@@ -56,7 +56,7 @@ public class Day02 extends Puzzle2024 {
         }
 
         for (int levelToExclude = 0; levelToExclude < levels.length; levelToExclude++) {
-            final String[] levelsWithoutExcludedLevel = Util.copyOfExcluding(levels, levelToExclude, String.class);
+            final String[] levelsWithoutExcludedLevel = Util.copyOfArrayExcluding(levels, levelToExclude, String.class);
 
             if (isReportSafe(levelsWithoutExcludedLevel)) {
                 return true;

@@ -8,31 +8,31 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class UtilTest {
 
     @Test
-    void copyOfExcluding() {
+    void copyOfArrayExcluding() {
         final Integer[] array = {1, 2, 3, 4, 5};
         final int indexToExclude = 2;
         final Integer[] expectedArray = {1, 2, 4, 5};
 
-        final Integer[] resultArray = Util.copyOfExcluding(array, indexToExclude, Integer.class);
+        final Integer[] resultArray = Util.copyOfArrayExcluding(array, indexToExclude, Integer.class);
 
         assertArrayEquals(expectedArray, resultArray);
     }
 
     @Test
-    void copyOfExcluding_emptyArray() {
+    void copyOfArrayExcluding_emptyArray() {
         final String[] array = {};
         final String[] expectedArray = {};
 
-        final String[] resultArray = Util.copyOfExcluding(array, 0, String.class);
+        final String[] resultArray = Util.copyOfArrayExcluding(array, 0, String.class);
 
         assertArrayEquals(expectedArray, resultArray);
     }
 
     @Test
-    void copyOfExcluding_indexOutOfBounds() {
+    void copyOfArrayExcluding_indexOutOfBounds() {
         final Integer[] array = {1, 2, 3, 4, 5};
         final int indexToExclude = 42;
 
-        assertThrows(IllegalArgumentException.class, () -> Util.copyOfExcluding(array, indexToExclude, Integer.class));
+        assertThrows(IllegalArgumentException.class, () -> Util.copyOfArrayExcluding(array, indexToExclude, Integer.class));
     }
 }
