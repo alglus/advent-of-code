@@ -39,5 +39,18 @@ public enum Direction {
     public boolean isOpposite(final Direction direction) {
         return direction == opposite();
     }
+
+    public Direction rotate90DegreesClockwise() {
+        return switch (this) {
+            case R -> D;
+            case L -> U;
+            case U -> R;
+            case D -> L;
+            case UR -> DR;
+            case DR -> DL;
+            case DL -> UL;
+            case UL -> UR;
+        };
+    }
 }
 
