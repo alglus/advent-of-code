@@ -56,31 +56,6 @@ public class Util {
         return true;
     }
 
-    public static <T> List<T> initializeAndPopulateList(final int listSize, final T initValue) {
-        final List<T> list = new ArrayList<>(listSize);
-        for (int i = 0; i < listSize; i++) {
-            list.add(initValue);
-        }
-        return list;
-    }
-
-    public static Set<Integer> setFromRange(final int startInclusive, final int endInclusive) {
-        return IntStream.rangeClosed(startInclusive, endInclusive).boxed().collect(Collectors.toSet());
-    }
-
-    public static Set<Integer> setFromUnorderedRangeEnds(final int end1Inclusive, final int end2Inclusive) {
-        if (end1Inclusive < end2Inclusive) {
-            return setFromRange(end1Inclusive, end2Inclusive);
-        } else {
-            return setFromRange(end2Inclusive, end1Inclusive);
-        }
-    }
-
-    public static <T> Set<T> intersection(final Set<T> set1, final Set<T> set2) {
-        final var intersection = new HashSet<>(set1);
-        intersection.retainAll(set2);
-        return intersection;
-    }
 
     @SuppressWarnings("unchecked")
     public static <T> T[] copyOfExcluding(@NonNull final T[] array, final int excludedIndex,

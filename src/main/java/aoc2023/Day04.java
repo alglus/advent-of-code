@@ -2,11 +2,12 @@ package aoc2023;
 
 import one.util.streamex.EntryStream;
 import util.StringUtil;
-import util.Util;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static util.CollectionUtil.initializeAndPopulateList;
 
 public class Day04 extends Puzzle2023 {
 

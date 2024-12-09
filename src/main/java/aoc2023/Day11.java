@@ -1,12 +1,14 @@
 package aoc2023;
 
 import util.Point;
-import util.Util;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import static util.CollectionUtil.intersection;
+import static util.CollectionUtil.setFromUnorderedRangeEnds;
 
 public class Day11 extends Puzzle2023 {
 
