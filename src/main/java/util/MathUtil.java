@@ -22,4 +22,12 @@ public class MathUtil {
     public static boolean isDivisible(final long numerator, final long denominator) {
         return numerator % denominator == 0;
     }
+
+    public static boolean isEven(final int n) {
+        return (n & 1) == 0;
+    }
+
+    public static boolean isOdd(final int n) {
+        return !isEven(n);
+    }
 }
