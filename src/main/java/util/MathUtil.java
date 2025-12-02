@@ -30,4 +30,8 @@ public class MathUtil {
     public static boolean isOdd(final int n) {
         return !isEven(n);
     }
+
+    public static boolean isInteger(final double n) {
+        return n % 1 == 0;
+    }
 }
