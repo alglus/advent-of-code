@@ -193,17 +193,12 @@ public class Day03 extends Puzzle2023 {
 
     @Override
     public String solvePart1() {
-        return String.valueOf(
-                sumAllNumbersAdjacentToSymbolsOnSchematic(
-                        Matrix.of(getInputAsCharMatrix())
-                ));
+        return String.valueOf(sumAllNumbersAdjacentToSymbolsOnSchematic(getInputAsCharMatrix()));
     }
 
     @Override
     public String solvePart2() {
-        return String.valueOf(
-                sumAllGearRatios(Matrix.of(getInputAsCharMatrix()))
-        );
+        return String.valueOf(sumAllGearRatios(getInputAsCharMatrix()));
     }
 
     private record Schematic(

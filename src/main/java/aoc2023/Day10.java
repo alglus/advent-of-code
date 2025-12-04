@@ -80,7 +80,7 @@ public class Day10 extends Puzzle2023 {
 
     @Override
     public String solvePart1() {
-        return String.valueOf(getStepsToFarthestPointFromStart(Matrix.of(getInputAsCharMatrix())));
+        return String.valueOf(getStepsToFarthestPointFromStart(getInputAsCharMatrix()));
     }
 
     @Override

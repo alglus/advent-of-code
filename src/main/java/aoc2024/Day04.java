@@ -108,11 +108,11 @@ public class Day04 extends Puzzle2024 {
 
     @Override
     public String solvePart1() {
-        return String.valueOf(countNumberOfXmas(Matrix.of(getInputAsCharMatrix())));
+        return String.valueOf(countNumberOfXmas(getInputAsCharMatrix()));
     }
 
     @Override
     public String solvePart2() {
-        return String.valueOf(countNumberOfMas(Matrix.of(getInputAsCharMatrix())));
+        return String.valueOf(countNumberOfMas(getInputAsCharMatrix()));
     }
 }

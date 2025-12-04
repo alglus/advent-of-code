@@ -21,7 +21,7 @@ public class Day06 extends Puzzle2024 {
         final Point startingPoint = findStartingMarker(matrix);
 
         Move move = new Move(startingPoint, Direction.U);
-        Set<Point> visitedPoints = new HashSet<>();
+        final Set<Point> visitedPoints = new HashSet<>();
 
         do {
             visitedPoints.add(move.point());
@@ -45,9 +45,9 @@ public class Day06 extends Puzzle2024 {
         throw new IllegalStateException("No starting marker found");
     }
 
-    private static Move findNextMove(Move move, Matrix<Character> matrix) {
+    private static Move findNextMove(Move move, final Matrix<Character> matrix) {
         while (true) {
-            Point nextPoint = move.point().add(move.direction().step);
+            final Point nextPoint = move.point().add(move.direction().step);
 
             if (nextPoint.isOutsideOf(matrix)) {
                 return new Move(nextPoint, move.direction());
@@ -64,12 +64,12 @@ public class Day06 extends Puzzle2024 {
 
     @Override
     public String solvePart1() {
-        return String.valueOf(countDistinctPositions(Matrix.of(getInputAsCharMatrix())));
+        return String.valueOf(countDistinctPositions(getInputAsCharMatrix()));
     }
 
     @Override
     public String solvePart2() {
-        return String.valueOf(getInputAsCharMatrix());
+        return String.valueOf(getInputAsChar2dArray());
     }
 
     private record Move(Point point, Direction direction) {

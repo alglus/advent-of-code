@@ -2,6 +2,7 @@ package aoc;
 
 import lombok.Getter;
 import util.Input;
+import util.Matrix;
 
 import java.util.List;
 
@@ -53,8 +54,12 @@ public abstract class Puzzle {
         return Input.splitByBlankLines(getInputLines());
     }
 
-    public Character[][] getInputAsCharMatrix() {
+    public Character[][] getInputAsChar2dArray() {
         return Input.convertCharInputIntoMatrix(getInputLines());
+    }
+
+    public Matrix<Character> getInputAsCharMatrix() {
+        return Matrix.of(getInputAsChar2dArray());
     }
 
     public void printSolutions() {

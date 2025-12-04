@@ -106,13 +106,13 @@ public class Day16 extends Puzzle2023 {
     public String solvePart1() {
         return String.valueOf(
                 getEnergizedTilesCount(
-                        Matrix.of(getInputAsCharMatrix()),
+                        getInputAsCharMatrix(),
                         new BeamEntry(Point.at(-1, 0), Direction.R)));
     }
 
     @Override
     public String solvePart2() {
-        return String.valueOf(getMaximumEnergizedTilesCount(Matrix.of(getInputAsCharMatrix())));
+        return String.valueOf(getMaximumEnergizedTilesCount(getInputAsCharMatrix()));
     }
 
     private record BeamEntry(Point point, Direction direction) {

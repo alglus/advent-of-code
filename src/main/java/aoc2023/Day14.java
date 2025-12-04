@@ -167,14 +167,14 @@ public class Day14 extends Puzzle2023 {
 
     @Override
     public String solvePart1() {
-        final var matrix = tiltPlatformNorth(Matrix.of(getInputAsCharMatrix()));
+        final var matrix = tiltPlatformNorth(getInputAsCharMatrix());
         return String.valueOf(getTotalLoadOnNorthSupportBeams(matrix));
     }
 
     @Override
     public String solvePart2() {
         return String.valueOf(getTotalLoadOnNorthSupportBeamsAfterNCycles(
-                Matrix.of(getInputAsCharMatrix()),
+                getInputAsCharMatrix(),
                 1000000000));
     }
 }
