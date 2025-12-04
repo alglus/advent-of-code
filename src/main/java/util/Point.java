@@ -20,6 +20,10 @@ public record Point(int x, int y) {
         return x < 0 || x >= matrix.width || y < 0 || y >= matrix.height;
     }
 
+    public <T> boolean isInsideOf(final Matrix<T> matrix) {
+        return !isOutsideOf(matrix);
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (o == null || getClass() != o.getClass()) return false;

@@ -1,7 +1,9 @@
 package util;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -49,6 +51,18 @@ public class Matrix<T> {
 
     public Stream<T> stream() {
         return Arrays.stream(matrix).flatMap(Arrays::stream);
+    }
+
+    public List<Point> points() {
+        final var list = new ArrayList<Point>();
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                list.add(new Point(x, y));
+            }
+        }
+
+        return list;
     }
 
     public boolean hasPatternAt(final int startX, final int startY, final Matrix<T> pattern) {
