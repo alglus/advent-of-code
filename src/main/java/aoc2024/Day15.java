@@ -29,7 +29,7 @@ public class Day15 extends Puzzle2024 {
     }
 
     private static Input parseInput(final List<List<String>> inputFile) {
-        final Matrix<Character> matrix = Matrix.of(util.Input.convertCharInputIntoMatrix(inputFile.get(0)));
+        final Matrix<Character> matrix = Matrix.of(util.Input.convertCharInputInto2dArray(inputFile.get(0)));
         final Point startPoint = findStartPoint(matrix);
         final List<Direction> moves = parseDirections(inputFile.subList(1, inputFile.size()));
         return new Input(matrix, startPoint, moves);

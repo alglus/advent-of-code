@@ -7,7 +7,7 @@ import util.graph.SimpleNode;
 
 import java.util.Optional;
 
-import static util.Input.convertCharInputIntoMatrix;
+import static util.Input.convertCharInputInto2dArray;
 import static util.StringUtil.concatenate;
 
 public class Day12 extends Puzzle2022 {
@@ -69,7 +69,7 @@ public class Day12 extends Puzzle2022 {
 
     @Override
     public String solvePart1() {
-        final var heightMatrix = convertCharInputIntoMatrix(getInputLines());
+        final var heightMatrix = convertCharInputInto2dArray(getInputLines());
         final var graph = buildGraphFromMatrix(heightMatrix);
 
         final var startNode = graph.getNodes().stream()
@@ -83,7 +83,7 @@ public class Day12 extends Puzzle2022 {
 
     @Override
     public String solvePart2() {
-        final var heightMatrix = convertCharInputIntoMatrix(getInputLines());
+        final var heightMatrix = convertCharInputInto2dArray(getInputLines());
         final var graph = buildGraphFromMatrix(heightMatrix);
 
         return String.valueOf(graph.getNodes().stream()

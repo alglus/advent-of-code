@@ -55,7 +55,7 @@ public abstract class Puzzle {
     }
 
     public Character[][] getInputAsChar2dArray() {
-        return Input.convertCharInputIntoMatrix(getInputLines());
+        return Input.convertCharInputInto2dArray(getInputLines());
     }
 
     public Matrix<Character> getInputAsCharMatrix() {

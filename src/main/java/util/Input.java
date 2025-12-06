@@ -1,7 +1,5 @@
 package util;
 
-import org.apache.commons.lang3.ArrayUtils;
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -63,15 +61,26 @@ public class Input {
         return matrix;
     }
 
-    public static Character[][] convertCharInputIntoMatrix(final List<String> input) {
+    public static Character[][] convertCharInputInto2dArray(final List<String> input) {
         if (input == null || input.isEmpty() || input.get(0) == null) {
             throw new IllegalArgumentException("The input is empty");
         }
 
-        final var matrix = new Character[input.size()][input.get(0).length()];
+        final var maxWidth = input.stream().mapToInt(String::length).max().orElse(0);
+        final var height = input.size();
 
-        for (int i = 0; i < input.size(); i++) {
-            matrix[i] = ArrayUtils.toObject(input.get(i).toCharArray());
+        final var matrix = new Character[height][maxWidth];
+
+        for (int y = 0; y < height; y++) {
+            var line = input.get(y);
+
+            if (line.length() < maxWidth) {
+                line = String.format("%-" + maxWidth + "s", line);
+            }
+
+            for (int x = 0; x < maxWidth; x++) {
+                matrix[y][x] = line.charAt(x);
+            }
         }
 
         return matrix;
