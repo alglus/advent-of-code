@@ -18,7 +18,7 @@ public enum MathFunction {
         return Arrays.stream(values())
                 .filter(function -> function.operator == operator)
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Unkown operator found!"));
+                .orElseThrow(() -> new IllegalArgumentException("Unknown operator found!"));
     }
 
     public long apply(final long n1, final long n2) {
@@ -27,6 +27,13 @@ public enum MathFunction {
             case SUB -> n1 - n2;
             case MUL -> n1 * n2;
             case DIV -> n1 / n2;
+        };
+    }
+
+    public long initialAccValue() {
+        return switch (this) {
+            case ADD, SUB -> 0L;
+            case MUL, DIV -> 1L;
         };
     }
 }
